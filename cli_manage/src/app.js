@@ -16,7 +16,7 @@ import support from "./components/support";
 
 Vue.use(MintUI)
 Vue.component("df-support", support)
-Vue.config.productionTip = false;
+Vue.config.productionTip = true;
 
 
 /* eslint-disable no-new */
