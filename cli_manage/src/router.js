@@ -6,10 +6,6 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import Index from '@/pages/Index/Index';
-import IndexPage from '@/pages/Index/IndexPage';
-import Classify from '@/pages/Classify/Classify';
-import Find from '@/pages/Find/Find';
-import User from '@/pages/User/User';
 Vue.use(Router);
 export function createRouter() {
     let router = new Router({
@@ -27,24 +23,7 @@ export function createRouter() {
         },
         routes: [{
             path: '/',
-            name: "首页",
-            component: Index
-        }, {
-            path: '/indexPage',
-            name: "首页",
-            component: IndexPage,
-        }, {
-            path: '/classify',
-            name: "分类",
-            component: Classify
-        }, {
-            path: '/find',
-            name: "发现",
-            component: Find
-        }, {
-            path: '/user',
-            name: "用户",
-            component: User
+            component: Index,
         }]
     });
 
