@@ -37,11 +37,7 @@ exports.cssLoaders = function (options) {
     }
 
     let autoprefixer = {
-        loader: 'autoprefixer-loader',
-        options: {
-            minimize: process.env.NODE_ENV === 'production',
-            sourceMap: options.sourceMap
-        }
+        loader: 'autoprefixer-loader'
     }
 
     // generate loader string to be used with extract text plugin

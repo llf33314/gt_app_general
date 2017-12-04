@@ -19,7 +19,6 @@ Vue.use(MintUI)
 Vue.component("df-support", support)
 Vue.config.productionTip = true;
 
-
 /* eslint-disable no-new */
 export function createApp() {
     let router = createRouter();

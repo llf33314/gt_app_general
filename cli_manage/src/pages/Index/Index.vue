@@ -1,33 +1,36 @@
 <template>
     <div class="index">
+        <!--用户信息-->
         <div class="index-user">
           <div class="index-user-row">
-            <span class="flex-1 text-xs">好汤姆</span>
-            <span class="flex-1 text-right text-xs">剩余 <b class="text-md">999</b> 天</span>            
+            <span class="flex-1 text-xs">{{userInfo.name}}</span>
+            <span class="flex-1 text-right text-xs">剩余 <b class="text-md">{{userInfo.expireDay}}</b> 天</span>            
           </div>
           <div class="index-user-row">
             <span class="flex-1">
               <span class="index-user-iden">
                 <svg class="icon" aria-hidden="true">
-                  <use xlink:href="#icon-zhizunban"></use>
+                  <use v-if="userInfo.versionCode == 4" xlink:href="#icon-zhizunban"></use>
+                  <use v-else xlink:href="#icon-zhizunban"></use>
                 </svg>
-                <span class="text text-xs">至尊版</span>
+                <span class="text text-xs">{{userInfo.version}}</span>
               </span>
             </span>
-            <span class="flex-1 text-right text-xs">2017-12-01</span>            
+            <span class="flex-1 text-right text-xs">{{new Date(userInfo.expireDate).toLocaleString()}}</span>            
           </div>
         </div>
+        <!--账户信息-->
         <div class="index-total">
           <span class="flex-1">
-            <div class="index-total-number">988.18</div>
+            <div class="index-total-number">{{userInfo.fanbiNum}}</div>
             <div class="index-total-text">粉币</div>
           </span>
           <span class="flex-1">
-            <div class="index-total-number">99</div>
+            <div class="index-total-number">{{userInfo.smsNum}}</div>
             <div class="index-total-text">剩余短信</div>
           </span>
           <span class="flex-1">
-            <div class="index-total-number">123456</div>
+            <div class="index-total-number">{{userInfo.flowNum}}</div>
             <div class="index-total-text">流量包</div>
           </span>
         </div>
@@ -40,6 +43,30 @@
             <span>车小算</span>
           </div>
         </div>
+        <!--我的行业-->
+        <div class="index-trade">
+          <span class="index-trade-title">我的行业</span>
+          <span class="trade-row">
+            <span class="trade-col">
+              <svg class="icon" aria-hidden="true">
+                <use xlink:href="#icon-car"></use>
+              </svg>
+              <div>汽车</div>
+            </span>
+            <span class="trade-col">
+              <svg class="icon" aria-hidden="true">
+                <use xlink:href="#icon-car"></use>
+              </svg>
+              <div>汽车</div>
+            </span>
+            <span class="trade-col">
+              <svg class="icon" aria-hidden="true">
+                <use xlink:href="#icon-car"></use>
+              </svg>
+              <div>汽车</div>
+            </span>
+          </span>
+        </div>
     </div>
 </template>
 <script>
@@ -50,7 +77,7 @@ import { mapState, mapMutations, mapGetters } from "vuex";
 export default {
   data() {
     return {
-      user: ""
+      userInfo: ""
     };
   },
   methods: {
@@ -71,6 +98,12 @@ export default {
   }),
   mounted() {
     const vm = this;
+    index.getAccountInfo({
+      params: {},
+        fn: data => {
+          vm.userInfo = data
+        }
+    })
   },
   store
 };
@@ -146,6 +179,8 @@ export default {
     }
   }
   .index-info {
+    width: 100%;
+    border-bottom: 10px solid @brGray;
     .index-info-title {
       height: 120px/@p;
       line-height: 120px/@p;
@@ -168,6 +203,14 @@ export default {
         background: -ms-linear-gradient(right, #23c0f6 0%, #229beb 100%);
         background: linear-gradient(to right, #23c0f6 0%, #229beb 100%);
       }
+    }
+  }
+  .index-trade {
+    .index-trade-title {
+      width: 100%;
+      padding: 11px 20px;
+      font-size: 45px/@p;
+      border-bottom: 1px solid @brGray;
     }
   }
 }

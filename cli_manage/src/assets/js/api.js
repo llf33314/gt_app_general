@@ -4,30 +4,12 @@
  */
 import $api from "./request.js"
 
-// const requesturl = 'http://rap.duofee.com/mockjsdata/38/';
 const requesturl = '';
 
-const login = {
-    logoImage(obj) {
-        return $api.post({
-            url: requesturl + '/propertyStaff/login.do',
-            params: obj.params,
-            fn: obj.fn
-        })
-    },
-    verify(obj) {
-        return $api.post({
-            url: requesturl + '/propertyStaff/login/verification.do',
-            params: obj.params,
-            fn: obj.fn
-        })
-    }
-};
-
 const index = {
-    info(obj) {
+    getAccountInfo(obj) {
         return $api.post({
-            url: requesturl + '/propertyStaff/index.do',
+            url: requesturl + '/app/bus/getAccountInfo.do',
             params: obj.params,
             fn: obj.fn
         })
@@ -35,6 +17,5 @@ const index = {
 }
 
 export {
-    login,
     index
 }
