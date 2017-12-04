@@ -20,7 +20,8 @@
     "mint-ui": "^2.2.10",
     "normalize.css": "^7.0.0",
     "vue": "^2.3.3",
-    "vue-router": "^3.0.1"
+    "vue-router": "^3.0.1",
+    "vuex": "^3.0.1"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.6",
