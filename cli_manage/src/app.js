@@ -8,6 +8,7 @@ import MintUI from 'mint-ui';
 import 'mint-ui/lib/style.css';
 import App from './App.vue';
 import { createRouter } from './router.js';
+import './assets/iconfont/iconfont.js';
 import "normalize.css";
 import "./assets/css/theme.less";
 import 'lib-flexible';
