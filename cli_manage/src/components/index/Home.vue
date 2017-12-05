@@ -12,11 +12,11 @@
       <mt-spinner color="#ff4257" class="loading" v-if="loading"></mt-spinner>
       <div class="content-row" v-if="!loading">
         <div class="content-col">
-            <div class="col-number">{{data.monthReceivable}}</div>
+            <div class="col-number">{{data.monthReceivable.toFixed(3)}}</div>
             <div class="col-text">本月应收</div>
         </div>
         <div class="content-col">
-            <div class="col-number">{{data.monthReceipts }}</div>
+            <div class="col-number">{{data.monthReceipts.toFixed(3)}}</div>
             <div class="col-text">本月实收</div>
         </div>
         <div class="content-col">

@@ -2,11 +2,11 @@
     <div class="index">
         <!--用户信息-->
         <div class="index-user">
-          <div class="index-user-row">
+          <div class="index-user-row" v-if="userInfo.name">
             <span class="flex-1 text-xs">{{userInfo.name}}</span>
             <span class="flex-1 text-right text-xs">剩余 <b class="text-md">{{userInfo.expireDay}}</b> 天</span>            
           </div>
-          <div class="index-user-row">
+          <div class="index-user-row" v-if="userInfo.name">
             <span class="flex-1">
               <span class="index-user-iden">
                 <svg class="icon" aria-hidden="true">
@@ -20,7 +20,7 @@
           </div>
         </div>
         <!--账户信息-->
-        <div class="index-total">
+        <div class="index-total" v-if="userInfo.name">
           <span class="flex-1">
             <div class="index-total-number">{{userInfo.fanbiNum}}</div>
             <div class="index-total-text">粉币</div>
@@ -35,12 +35,12 @@
           </span>
         </div>
         <!--行业模块-->
-        <div :is="item.component" :text="item.text" v-for="item in userModule"></div>
+        <div :is="item.component" :text="item.text" :key="item.code" v-for="item in userModule"></div>
         <!--我的行业-->
-        <div class="index-trade">
+        <div class="index-trade" v-if="userInfo.name">
           <div class="index-trade-title">我的行业</div>
-          <div class="index-trade-row">
-            <span class="index-trade-col carModule">
+          <div class="index-trade-content">
+            <span class="index-trade-col carModule" :key="item.text" v-for="item in userModule" v-if="item.component === 'car'">
               <span class="col-content">
                 <div class="icon-bg">
                   <svg class="icon" aria-hidden="true">
@@ -50,7 +50,7 @@
                 <div class="text">汽车</div>
               </span>
             </span>
-            <span class="index-trade-col homeModule">
+            <span class="index-trade-col homeModule" v-else-if="item.component === 'home'">
               <span class="col-content">
                 <div class="icon-bg">
                   <svg class="icon" aria-hidden="true">
@@ -60,7 +60,7 @@
                 <div class="text">物业</div>
               </span>
             </span>
-            <span class="index-trade-col shopModule">
+            <span class="index-trade-col shopModule" v-else-if="item.component === 'shop'">
               <span class="col-content">
                 <div class="icon-bg">
                   <svg class="icon" aria-hidden="true">
@@ -128,7 +128,7 @@ export default {
           if (typeof vm.$store.state.industry[data[i].code] !== "undefined") {
             vm.userModule.push({
               component: vm.$store.state.industry[data[i].code],
-              text: data.name
+              text: data[i].name
             });
           }
         }
@@ -242,7 +242,7 @@ export default {
       font-size: 45px/@p;
       border-bottom: 1px solid @brGray;
     }
-    .index-trade-row {
+    .index-trade-content {
       width: 100%;
       .index-trade-col {
         width: 32%;
