@@ -7,9 +7,8 @@ import Qs from 'qs'
 import { Toast } from 'mint-ui';
 import { Indicator } from 'mint-ui';
 
-//服务器地址
-// const request = 'https://wuye.deeptel.com.cn';
-const request = 'http://192.168.3.98:8401';
+const request = window.request
+
 axios.defaults.baseURL = request;
 //响应时间
 axios.defaults.timeout = 10000;
