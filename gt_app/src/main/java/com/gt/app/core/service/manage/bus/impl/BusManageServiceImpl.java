@@ -28,6 +28,9 @@ import java.util.List;
 @Service
 public class BusManageServiceImpl implements BusManageService {
 
+    /**
+     * 版本字典
+     */
     private static final String versionDict = "1004";
 
     /**
