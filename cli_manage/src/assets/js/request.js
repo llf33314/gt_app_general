@@ -22,10 +22,8 @@ axios.defaults.headers = {
 
 //添加请求拦截器
 axios.interceptors.request.use(config => {
-    Indicator.open();
-    // 判断是否存在token，如果存在的话，则每个http header都加上token
-    if (typeof sessionStorage.getItem('token') !== 'undefined' && sessionStorage.getItem('token') !== null) {
-        config.headers.token = sessionStorage.getItem('token');
+    if (typeof config.data !== 'undefined') {
+        Indicator.open();
     }
     return config
 }, error => {

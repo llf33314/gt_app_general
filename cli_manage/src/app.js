@@ -13,10 +13,8 @@ import "normalize.css";
 import "./assets/css/theme.less";
 import 'lib-flexible';
 import store from './assets/js/store.js';
-import support from "./components/support";
 
 Vue.use(MintUI)
-Vue.component("df-support", support)
 Vue.config.productionTip = true;
 
 /* eslint-disable no-new */

@@ -1,6 +1,11 @@
 /** 
- * LESS主题样式
- */
+* LESS主题样式
+*/
+
+html {
+    height: 100%;
+    background-color: @bgGray;
+}
 
 #app {
     font-family: "Microsoft YaHei", "微软雅黑", "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", Arial, sans-serif;
@@ -8,9 +13,7 @@
     -moz-osx-font-smoothing: grayscale;
     color: @color;
     background-color: @bgColor;
-}
-
-//顶部菜单
+} //顶部菜单
 .mint-header {
     color: @color !important;
     background-color: @bgColor !important;
@@ -694,6 +697,10 @@ ul li {
 
 /* 弹性布局 */
 
+[class*="flex-"] {
+    width: 0;
+}
+
 .flex {
     display: flex;
 }
@@ -913,4 +920,148 @@ ul li {
     white-space: normal;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
+}
+
+
+/* 模块信息 */
+
+.index-info {
+    width: 100%;
+    background-color: @bgColor;
+    margin-bottom: 10px;
+    position: relative;
+    .shade {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        background-color: #666;
+        filter: alpha(opacity=10);
+        opacity: 0.1;
+        overflow: hidden;
+    }
+    .index-info-title {
+        height: 121px/@p;
+        font-size: 45px/@p;
+        font-weight: 545;
+        border-bottom: 1px solid @brGray;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        .icon-bg {
+            color: #fff;
+            width: 22px;
+            height: 22px;
+            border-radius: 100%;
+            margin-right: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            .icon {
+                font-size: 16px;
+            }
+        }
+    }
+    .index-info-content {
+        width: 100%;
+        padding: 20px 0;
+        position: relative;
+        .loading {
+            position: absolute;
+            left: 45%;
+            top: 25%;
+        }
+        .content-row {
+            width: 100%;
+            display: flex;
+            padding-bottom: 20px;
+            .content-col {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                flex: 1;
+                width: 0;
+                .col-number {
+                    width: 100%;
+                    text-align: center;
+                    font-size: 60px/@p;
+                    word-wrap: normal;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                    overflow: hidden;
+                }
+                .col-text {
+                    color: @gray;
+                    padding-top: 15px;
+                    font-size: 40px/@p;
+                }
+            }
+            &:last-child {
+                padding-bottom: 0;
+            }
+        }
+    }
+}
+
+
+/* 车小算模块 */
+
+.carModule {
+    .icon-bg {
+        background: -moz-linear-gradient( left, right, @carIconLeft 0%, @carIconRight 100%);
+        background: -webkit-gradient( linear, right, color-stop(0%, @carIconLeft), color-stop(100%, @carIconRight));
+        background: -webkit-linear-gradient( right, @carIconLeft 0%, @carIconRight 100%);
+        background: -o-linear-gradient( right, @carIconLeft 0%, @carIconRight 100%);
+        background: -ms-linear-gradient( right, @carIconLeft 0%, @carIconRight 100%);
+        background: linear-gradient( to right, @carIconLeft 0%, @carIconRight 100%);
+    }
+    .index-info-content {
+        height: 166px;
+        .col-number {
+            color: @carColor;
+        }
+    }
+}
+
+
+/* 揽胜家园模块 */
+
+.homeModule {
+    .icon-bg {
+        background: -moz-linear-gradient( left, right, @homeIconLeft 0%, @homeIconRight 100%);
+        background: -webkit-gradient( linear, right, color-stop(0%, @homeIconLeft), color-stop(100%, @homeIconRight));
+        background: -webkit-linear-gradient( right, @homeIconLeft 0%, @homeIconRight 100%);
+        background: -o-linear-gradient( right, @homeIconLeft 0%, @homeIconRight 100%);
+        background: -ms-linear-gradient( right, @homeIconLeft 0%, @homeIconRight 100%);
+        background: linear-gradient( to right, @homeIconLeft 0%, @homeIconRight 100%);
+    }
+    .index-info-content {
+        height: 93px;
+        .col-number {
+            color: @homeColor;
+        }
+    }
+}
+
+
+/* 商城模块 */
+
+.shopModule {
+    .icon-bg {
+        background: -moz-linear-gradient( left, right, @shopIconLeft 0%, @shopIconRight 100%);
+        background: -webkit-gradient( linear, right, color-stop(0%, @shopIconLeft), color-stop(100%, @shopIconRight));
+        background: -webkit-linear-gradient( right, @shopIconLeft 0%, @shopIconRight 100%);
+        background: -o-linear-gradient( right, @shopIconLeft 0%, @shopIconRight 100%);
+        background: -ms-linear-gradient( right, @shopIconLeft 0%, @shopIconRight 100%);
+        background: linear-gradient( to right, @shopIconLeft 0%, @shopIconRight 100%);
+        .icon {
+            font-size: 13px;
+        }
+    }
+    .index-info-content {
+        height: 166px;
+        .col-number {
+            color: @shopColor;
+        }
+    }
 }

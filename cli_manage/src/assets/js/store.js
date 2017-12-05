@@ -5,6 +5,11 @@ Vue.use(Vuex);
 
 const store = new Vuex.Store({
     state: {
+        //行业对应模板
+        industry: {
+            2: "car",
+            5: "home"
+        },
         userId: 0,
         token: ''
     },
