@@ -1,6 +1,6 @@
 /**
  * @file 工具包
- * @author dj(1193933@qq.com)
+ * @author dj
  */
 
 'use strict';

@@ -1,10 +1,10 @@
 /**
  * @file 页面骨架
- * @author dj(1193933@qq.com)
+ * @author dj
  */
 
 import Vue from 'vue';
-import Skeleton from '@/pages/Skeleton';
+import Skeleton from './pages/Skeleton';
 
 export default new Vue({
     components: {

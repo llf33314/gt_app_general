@@ -1,11 +1,11 @@
 /**
  * @file router
- * @author dj(1193933@qq.com)
+ * @author dj
  */
 
 import Vue from 'vue';
 import Router from 'vue-router';
-import Index from '@/pages/Index/Index';
+import Index from './pages/Index/Index';
 Vue.use(Router);
 export function createRouter() {
     let router = new Router({

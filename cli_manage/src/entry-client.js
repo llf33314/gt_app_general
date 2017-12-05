@@ -1,6 +1,6 @@
 /**
  * @file client entry
- * @author dj(1193933@qq.com)
+ * @author dj
  */
 
 import 'babel-polyfill';

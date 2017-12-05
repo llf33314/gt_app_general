@@ -1,6 +1,6 @@
 /**
  * @file 开发环境客户端
- * @author dj(1193933@qq.com)
+ * @author dj
  */
 
 'use strict';

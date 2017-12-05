@@ -1,6 +1,6 @@
 /**
  * @file entry
- * @author dj(1193933@qq.com)
+ * @author dj
  */
 
 import Vue from 'vue';

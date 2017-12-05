@@ -1,6 +1,6 @@
 /**
  * @file 基础 webpack 配置文件，开发环境和生产环境公用的
- * @author dj(1193933@qq.com)
+ * @author dj
  */
 
 'use strict';

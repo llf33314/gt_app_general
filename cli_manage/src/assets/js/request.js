@@ -1,6 +1,7 @@
 'use strict'
 /**
- * axios请求工具类
+ * @file axios请求封装
+ * @author dj
  */
 import axios from 'axios'
 import Qs from 'qs'
@@ -21,7 +22,7 @@ axios.defaults.headers = {
 
 //添加请求拦截器
 axios.interceptors.request.use(config => {
-    if (typeof config.data !== 'undefined') {
+    if (typeof config.data !== 'undefined' && Qs.stringify(config.data) !== '') {
         Indicator.open();
     }
     return config

@@ -1,6 +1,6 @@
 /**
  * @file 检查版本更新
- * @author dj(1193933@qq.com)
+ * @author dj
  */
 
 /* eslint-disable no-console */
