@@ -20,7 +20,7 @@
           <div class="col-text">今日提醒</div>
         </div>
         <div class="content-col">
-          <div class="col-number">{{data.todayRevenue}}</div>
+          <div class="col-number">{{data.todayRevenue.toFixed(3)}}</div>
           <div class="col-text">今日营收</div>
         </div>
       </div>
