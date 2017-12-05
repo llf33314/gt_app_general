@@ -4,30 +4,28 @@
  */
 import $api from "./request.js"
 
-// const requesturl = 'http://rap.duofee.com/mockjsdata/38/';
 const requesturl = '';
 
-const login = {
-    logoImage(obj) {
+const index = {
+    //获取账号信息
+    getAccountInfo(obj) {
         return $api.post({
-            url: requesturl + '/propertyStaff/login.do',
+            url: requesturl + '/app/bus/getAccountInfo',
             params: obj.params,
             fn: obj.fn
         })
     },
-    verify(obj) {
+    //根据行业code获取各行业信息
+    getIndustryInfo(obj) {
         return $api.post({
-            url: requesturl + '/propertyStaff/login/verification.do',
-            params: obj.params,
+            url: requesturl + '/app/bus/getIndustryInfo/' + obj.params,
             fn: obj.fn
         })
-    }
-};
-
-const index = {
-    info(obj) {
+    },
+    //获取账号对应的行业列表
+    listIndustry(obj) {
         return $api.post({
-            url: requesturl + '/propertyStaff/index.do',
+            url: requesturl + '/app/bus/listIndustry',
             params: obj.params,
             fn: obj.fn
         })
@@ -35,6 +33,5 @@ const index = {
 }
 
 export {
-    login,
     index
 }

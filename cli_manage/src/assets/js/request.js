@@ -9,25 +9,21 @@ import { Indicator } from 'mint-ui';
 
 //服务器地址
 // const request = 'https://wuye.deeptel.com.cn';
-const request = 'http://192.168.3.32:8080';
+const request = 'http://192.168.3.98:8401';
 axios.defaults.baseURL = request;
 //响应时间
 axios.defaults.timeout = 10000;
 //`withCredentails`选项表明了是否是跨域请求
-axios.defaults.withCredentials = true;
+axios.defaults.withCredentials = false;
 //设置默认请求头
 axios.defaults.headers = {
-    'X-Requested-With': 'XMLHttpRequest',
     "Content-Type": "application/json; charset=UTF-8"
 };
 
 //添加请求拦截器
 axios.interceptors.request.use(config => {
-    Indicator.open();
-    console.log(sessionStorage.getItem('token'))
-    // 判断是否存在token，如果存在的话，则每个http header都加上token
-    if (typeof sessionStorage.getItem('token') !== 'undefined' && sessionStorage.getItem('token') !== null) {
-        config.headers.token = sessionStorage.getItem('token');
+    if (typeof config.data !== 'undefined') {
+        Indicator.open();
     }
     return config
 }, error => {
@@ -37,7 +33,7 @@ axios.interceptors.request.use(config => {
 
 //添加返回拦截器
 axios.interceptors.response.use(response => {
-    if (response.data && response.data.code === 0) {
+    if (response.data && response.data.code === 100) {
         return response.data;
     } else if (response.data.message) {
         return checkCode(response.data.message)

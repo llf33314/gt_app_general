@@ -1,13 +1,75 @@
 <template>
     <div class="index">
+        <!--用户信息-->
         <div class="index-user">
           <div class="index-user-row">
-            <span class="flex-1">好汤姆</span>
-            <span class="flex-1 text-right">剩余<b>999</b>天</span>            
+            <span class="flex-1 text-xs">{{userInfo.name}}</span>
+            <span class="flex-1 text-right text-xs">剩余 <b class="text-md">{{userInfo.expireDay}}</b> 天</span>            
           </div>
           <div class="index-user-row">
-            <span class="flex-1">aaa</span>
-            <span class="flex-1 text-right">2017-12-01</span>            
+            <span class="flex-1">
+              <span class="index-user-iden">
+                <svg class="icon" aria-hidden="true">
+                  <use v-if="userInfo.versionCode == 4" xlink:href="#icon-zhizunban"></use>
+                  <use v-else xlink:href="#icon-zhizunban"></use>
+                </svg>
+                <span class="text text-xs">{{userInfo.version}}</span>
+              </span>
+            </span>
+            <span class="flex-1 text-right text-xs">{{new Date(userInfo.expireDate).toLocaleString()}}</span>            
+          </div>
+        </div>
+        <!--账户信息-->
+        <div class="index-total">
+          <span class="flex-1">
+            <div class="index-total-number">{{userInfo.fanbiNum}}</div>
+            <div class="index-total-text">粉币</div>
+          </span>
+          <span class="flex-1">
+            <div class="index-total-number">{{userInfo.smsNum}}</div>
+            <div class="index-total-text">剩余短信</div>
+          </span>
+          <span class="flex-1">
+            <div class="index-total-number">{{userInfo.flowNum}}</div>
+            <div class="index-total-text">流量包</div>
+          </span>
+        </div>
+        <!--行业模块-->
+        <div :is="item.component" :text="item.text" v-for="item in userModule"></div>
+        <!--我的行业-->
+        <div class="index-trade">
+          <div class="index-trade-title">我的行业</div>
+          <div class="index-trade-row">
+            <span class="index-trade-col carModule">
+              <span class="col-content">
+                <div class="icon-bg">
+                  <svg class="icon" aria-hidden="true">
+                    <use xlink:href="#icon-car"></use>
+                  </svg>
+                </div>
+                <div class="text">汽车</div>
+              </span>
+            </span>
+            <span class="index-trade-col homeModule">
+              <span class="col-content">
+                <div class="icon-bg">
+                  <svg class="icon" aria-hidden="true">
+                    <use xlink:href="#icon-wuye"></use>
+                  </svg>
+                </div>
+                <div class="text">物业</div>
+              </span>
+            </span>
+            <span class="index-trade-col shopModule">
+              <span class="col-content">
+                <div class="icon-bg">
+                  <svg class="icon" aria-hidden="true">
+                    <use xlink:href="#icon-shop"></use>
+                  </svg>
+                </div>
+                <div class="text">商城</div>
+              </span>
+            </span>
           </div>
         </div>
     </div>
@@ -16,11 +78,16 @@
 import { index } from "@/assets/js/api.js";
 import store from "@/assets/js/store.js";
 import { mapState, mapMutations, mapGetters } from "vuex";
+import car from "../../components/index/Car";
+import home from "../../components/index/Home";
+import shop from "../../components/index/Shop";
 
 export default {
   data() {
     return {
-      user: ""
+      userInfo: {},
+      userModule: [],
+      userIndustry: {}
     };
   },
   methods: {
@@ -39,8 +106,34 @@ export default {
       return state.userId;
     }
   }),
+  components: {
+    car,
+    home,
+    shop
+  },
   mounted() {
     const vm = this;
+    //获取账号信息
+    index.getAccountInfo({
+      params: {},
+      fn: data => {
+        vm.userInfo = data;
+      }
+    });
+    //获取账号对应的行业列表
+    index.listIndustry({
+      params: {},
+      fn: data => {
+        for (let i = 0; i < data.length; i++) {
+          if (typeof vm.$store.state.industry[data[i].code] !== "undefined") {
+            vm.userModule.push({
+              component: vm.$store.state.industry[data[i].code],
+              text: data.name
+            });
+          }
+        }
+      }
+    });
   },
   store
 };
@@ -48,20 +141,137 @@ export default {
 <style lang="less" scoped>
 .index {
   width: 100%;
+  background-color: @bgGray;
+  /* 用户信息 */
   .index-user {
     width: 100%;
     height: 208px/@p;
     color: @white;
-    padding: 0 10px;
-    background: -moz-linear-gradient(right top, left bottom, #ff8261 0%, #ff4257 100%);
-    background: -webkit-gradient(linear, right top, color-stop(0%,#ff8261), color-stop(100%,#ff4257));
-    background: -webkit-linear-gradient(right top, #ff8261 0%,#ff4257 100%);
-    background: -o-linear-gradient(right top, #ff8261 0%,#ff4257 100%);
-    background: -ms-linear-gradient(right top, #ff8261 0%,#ff4257 100%);
-    background: linear-gradient(to right top, #ff8261 0%,#ff4257 100%);
+    padding: 0 20px;
+    background: -moz-linear-gradient(
+      right top,
+      left bottom,
+      @indexLeftBottom 0%,
+      @indexRightTop 100%
+    );
+    background: -webkit-gradient(
+      linear,
+      right top,
+      color-stop(0%, @indexLeftBottom),
+      color-stop(100%, @indexRightTop)
+    );
+    background: -webkit-linear-gradient(
+      right top,
+      @indexLeftBottom 0%,
+      @indexRightTop 100%
+    );
+    background: -o-linear-gradient(
+      right top,
+      @indexLeftBottom 0%,
+      @indexRightTop 100%
+    );
+    background: -ms-linear-gradient(
+      right top,
+      @indexLeftBottom 0%,
+      @indexRightTop 100%
+    );
+    background: linear-gradient(
+      to right top,
+      @indexLeftBottom 0%,
+      @indexRightTop 100%
+    );
     .index-user-row {
       display: flex;
-      padding: 10px 0;
+      padding: 7px 0;
+      align-items: center;
+      .index-user-iden {
+        height: 66px/@p;
+        border-radius: 66px/@p;
+        padding: 0 10px 0 2px;
+        background-color: #ff9d90;
+        .icon {
+          font-size: 20px;
+          padding-top: 1px;
+          vertical-align: middle;
+        }
+        .text {
+          line-height: 66px/@p;
+          word-wrap: normal;
+          text-overflow: ellipsis;
+          overflow: hidden;
+          vertical-align: middle;
+        }
+      }
+      .text-md {
+        font-weight: 549;
+      }
+    }
+  }
+  /* 账户信息 */
+  .index-total {
+    width: 100%;
+    background-color: @bgColor;
+    margin-bottom: 10px;
+    display: flex;
+    .flex-1 {
+      text-align: center;
+      .index-total-number {
+        color: @red;
+        font-size: 60px/@p;
+        padding-top: 15px;
+        word-wrap: normal;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+      }
+      .index-total-text {
+        padding-top: 15px;
+        padding-bottom: 20px;
+        color: @gray;
+        font-size: 40px/@p;
+      }
+    }
+  }
+  /* 我的行业 */
+  .index-trade {
+    width: 100%;
+    background-color: @bgColor;
+    .index-trade-title {
+      width: 100%;
+      padding: 11px 20px;
+      font-size: 45px/@p;
+      border-bottom: 1px solid @brGray;
+    }
+    .index-trade-row {
+      width: 100%;
+      .index-trade-col {
+        width: 32%;
+        height: 100px;
+        .col-content {
+          height: inherit;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          .icon-bg {
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            border-radius: 5px;
+            margin: 7px 0;
+            color: #fff;
+            .icon {
+              font-size: 30px;
+            }
+          }
+          .text {
+            font-size: 40px/@p;
+          }
+        }
+      }
     }
   }
 }
