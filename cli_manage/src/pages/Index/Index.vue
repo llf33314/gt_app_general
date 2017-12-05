@@ -35,37 +35,149 @@
           </span>
         </div>
         <!--车小算-->
-        <div class="index-info">
+        <div class="index-info carModule">
           <div class="index-info-title">
-            <svg class="icon" aria-hidden="true">
-              <use xlink:href="#icon-car"></use>
-            </svg>
+            <span class="icon-bg">
+              <svg class="icon" aria-hidden="true">
+                <use xlink:href="#icon-car"></use>
+              </svg>
+            </span>
             <span>车小算</span>
+          </div>
+          <div class="index-info-content">
+            <div class="content-row">
+              <div class="content-col">
+                <div class="col-number">1</div>
+                <div class="col-text">今日预约</div>
+              </div>
+              <div class="content-col">
+                <div class="col-number">12345</div>
+                <div class="col-text">7日内已开订单</div>
+              </div>
+              <div class="content-col">
+                <div class="col-number">1</div>
+                <div class="col-text">今日提醒</div>
+              </div>
+            </div>
+            <div class="content-row">
+              <div class="content-col">
+                <div class="col-number">112</div>
+                <div class="col-text">今日营收</div>
+              </div>
+              <div class="content-col">
+                <div class="col-number">15</div>
+                <div class="col-text">新增会员</div>
+              </div>
+              <div class="content-col">
+                <div class="col-number">15</div>
+                <div class="col-text">新增车主</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--揽胜家园-->
+        <div class="index-info homeModule">
+          <div class="index-info-title">
+            <span class="icon-bg">
+              <svg class="icon" aria-hidden="true">
+                <use xlink:href="#icon-wuye"></use>
+              </svg>
+            </span>
+            <span>揽胜家园</span>
+          </div>
+          <div class="index-info-content">
+            <div class="content-row">
+              <div class="content-col">
+                <div class="col-number">100.1</div>
+                <div class="col-text">本月应收</div>
+              </div>
+              <div class="content-col">
+                <div class="col-number">1212.00</div>
+                <div class="col-text">本月实收</div>
+              </div>
+              <div class="content-col">
+                <div class="col-number">9</div>
+                <div class="col-text">本月新入住</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--商城-->
+        <div class="index-info shopModule">
+          <div class="index-info-title">
+            <span class="icon-bg">
+              <svg class="icon" aria-hidden="true">
+                <use xlink:href="#icon-shop"></use>
+              </svg>
+            </span>
+            <span>商城</span>
+          </div>
+          <div class="index-info-content">
+            <div class="content-row">
+              <div class="content-col">
+                <div class="col-number">110</div>
+                <div class="col-text">今日订单数</div>
+              </div>
+              <div class="content-col">
+                <div class="col-number">12345</div>
+                <div class="col-text">待发货</div>
+              </div>
+              <div class="content-col">
+                <div class="col-number">3</div>
+                <div class="col-text">维权订单</div>
+              </div>
+            </div>
+            <div class="content-row">
+              <div class="content-col">
+                <div class="col-number">22</div>
+                <div class="col-text">昨日营业额</div>
+              </div>
+              <div class="content-col">
+                <div class="col-number">123</div>
+                <div class="col-text">7天营业额</div>
+              </div>
+              <div class="content-col">
+                <div class="col-number">1</div>
+                <div class="col-text">结算金额</div>
+              </div>
+            </div>
           </div>
         </div>
         <!--我的行业-->
         <div class="index-trade">
-          <span class="index-trade-title">我的行业</span>
-          <span class="trade-row">
-            <span class="trade-col">
-              <svg class="icon" aria-hidden="true">
-                <use xlink:href="#icon-car"></use>
-              </svg>
-              <div>汽车</div>
+          <div class="index-trade-title">我的行业</div>
+          <div class="index-trade-row">
+            <span class="index-trade-col carModule">
+              <span class="col-content">
+                <div class="icon-bg">
+                  <svg class="icon" aria-hidden="true">
+                    <use xlink:href="#icon-car"></use>
+                  </svg>
+                </div>
+                <div class="text">汽车</div>
+              </span>
             </span>
-            <span class="trade-col">
-              <svg class="icon" aria-hidden="true">
-                <use xlink:href="#icon-car"></use>
-              </svg>
-              <div>汽车</div>
+            <span class="index-trade-col homeModule">
+              <span class="col-content">
+                <div class="icon-bg">
+                  <svg class="icon" aria-hidden="true">
+                    <use xlink:href="#icon-wuye"></use>
+                  </svg>
+                </div>
+                <div class="text">物业</div>
+              </span>
             </span>
-            <span class="trade-col">
-              <svg class="icon" aria-hidden="true">
-                <use xlink:href="#icon-car"></use>
-              </svg>
-              <div>汽车</div>
+            <span class="index-trade-col shopModule">
+              <span class="col-content">
+                <div class="icon-bg">
+                  <svg class="icon" aria-hidden="true">
+                    <use xlink:href="#icon-shop"></use>
+                  </svg>
+                </div>
+                <div class="text">商城</div>
+              </span>
             </span>
-          </span>
+          </div>
         </div>
     </div>
 </template>
@@ -100,10 +212,10 @@ export default {
     const vm = this;
     index.getAccountInfo({
       params: {},
-        fn: data => {
-          vm.userInfo = data
-        }
-    })
+      fn: data => {
+        vm.userInfo = data;
+      }
+    });
   },
   store
 };
@@ -111,6 +223,7 @@ export default {
 <style lang="less" scoped>
 .index {
   width: 100%;
+  /* 用户信息 */
   .index-user {
     width: 100%;
     height: 208px/@p;
@@ -159,6 +272,7 @@ export default {
       }
     }
   }
+  /* 账户信息 */
   .index-total {
     width: 100%;
     border-bottom: 10px solid @brGray;
@@ -178,39 +292,221 @@ export default {
       }
     }
   }
+  /* 模块信息 */
   .index-info {
     width: 100%;
     border-bottom: 10px solid @brGray;
     .index-info-title {
-      height: 120px/@p;
-      line-height: 120px/@p;
+      height: 121px/@p;
       font-size: 45px/@p;
-      text-align: center;
+      font-weight: 545;
       border-bottom: 1px solid @brGray;
-      .icon {
-        border-radius: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      .icon-bg {
         color: #fff;
-        font-size: 20px;
-        background: -moz-linear-gradient(left, right, #23c0f6 0%, #229beb 100%);
-        background: -webkit-gradient(
-          linear,
-          right,
-          color-stop(0%, #23c0f6),
-          color-stop(100%, #229beb)
-        );
-        background: -webkit-linear-gradient(right, #23c0f6 0%, #229beb 100%);
-        background: -o-linear-gradient(right, #23c0f6 0%, #229beb 100%);
-        background: -ms-linear-gradient(right, #23c0f6 0%, #229beb 100%);
-        background: linear-gradient(to right, #23c0f6 0%, #229beb 100%);
+        width: 22px;
+        height: 22px;
+        border-radius: 100%;
+        margin-right: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        .icon {
+          font-size: 16px;
+        }
+      }
+    }
+    .index-info-content {
+      width: 100%;
+      padding: 20px 0;
+      .content-row {
+        width: 100%;
+        display: flex;
+        padding-bottom: 20px;
+        .content-col {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          flex: 1;
+          .col-number {
+            font-size: 60px/@p;
+          }
+          .col-text {
+            color: @gray;
+            padding-top: 15px;
+            font-size: 40px/@p;
+          }
+        }
+        &:last-child {
+          padding-bottom: 0;
+        }
       }
     }
   }
+  /* 我的行业 */
   .index-trade {
     .index-trade-title {
       width: 100%;
       padding: 11px 20px;
       font-size: 45px/@p;
       border-bottom: 1px solid @brGray;
+    }
+    .index-trade-row {
+      width: 100%;
+      .index-trade-col {
+        width: 32%;
+        height: 100px;
+        .col-content {
+          height: inherit;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          .icon-bg {
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            border-radius: 5px;
+            margin: 7px 0;
+            color: #fff;
+            .icon {
+              font-size: 30px;
+            }
+          }
+          .text {
+            font-size: 40px/@p;
+          }
+        }
+      }
+    }
+  }
+  /* 车小算模块 */
+  .carModule {
+    .icon-bg {
+      background: -moz-linear-gradient(
+        left,
+        right,
+        @carIconLeft 0%,
+        @carIconRight 100%
+      );
+      background: -webkit-gradient(
+        linear,
+        right,
+        color-stop(0%, #23c0f6),
+        color-stop(100%, #229beb)
+      );
+      background: -webkit-linear-gradient(
+        right,
+        @carIconLeft 0%,
+        @carIconRight 100%
+      );
+      background: -o-linear-gradient(
+        right,
+        @carIconLeft 0%,
+        @carIconRight 100%
+      );
+      background: -ms-linear-gradient(
+        right,
+        @carIconLeft 0%,
+        @carIconRight 100%
+      );
+      background: linear-gradient(
+        to right,
+        @carIconLeft 0%,
+        @carIconRight 100%
+      );
+    }
+    .col-number {
+      color: @carColor;
+    }
+  }
+  /* 揽胜家园模块 */
+  .homeModule {
+    .icon-bg {
+      background: -moz-linear-gradient(
+        left,
+        right,
+        @homeIconLeft 0%,
+        @homeIconRight 100%
+      );
+      background: -webkit-gradient(
+        linear,
+        right,
+        color-stop(0%, @homeIconLeft),
+        color-stop(100%, @homeIconRight)
+      );
+      background: -webkit-linear-gradient(
+        right,
+        @homeIconLeft 0%,
+        @homeIconRight 100%
+      );
+      background: -o-linear-gradient(
+        right,
+        @homeIconLeft 0%,
+        @homeIconRight 100%
+      );
+      background: -ms-linear-gradient(
+        right,
+        @homeIconLeft 0%,
+        @homeIconRight 100%
+      );
+      background: linear-gradient(
+        to right,
+        @homeIconLeft 0%,
+        @homeIconRight 100%
+      );
+    }
+    .col-number {
+      color: @homeColor;
+    }
+  }
+  /* 商城模块 */
+  .shopModule {
+    .icon-bg {
+      background: -moz-linear-gradient(
+        left,
+        right,
+        @shopIconLeft 0%,
+        @shopIconRight 100%
+      );
+      background: -webkit-gradient(
+        linear,
+        right,
+        color-stop(0%, @shopIconLeft),
+        color-stop(100%, @shopIconRight)
+      );
+      background: -webkit-linear-gradient(
+        right,
+        @shopIconLeft 0%,
+        @shopIconRight 100%
+      );
+      background: -o-linear-gradient(
+        right,
+        @shopIconLeft 0%,
+        @shopIconRight 100%
+      );
+      background: -ms-linear-gradient(
+        right,
+        @shopIconLeft 0%,
+        @shopIconRight 100%
+      );
+      background: linear-gradient(
+        to right,
+        @shopIconLeft 0%,
+        @shopIconRight 100%
+      );
+      .icon {
+        font-size: 13px;
+      }
+    }
+    .col-number {
+      color: @shopColor;
     }
   }
 }
