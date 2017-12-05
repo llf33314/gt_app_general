@@ -14,7 +14,7 @@ module.exports = {
     themePath: path.resolve(__dirname, '../src/assets/css/config.less'),
     build: {
         env: require('./prod.env'),
-        index: path.resolve(__dirname, '../dist/index.html'),
+        index: path.resolve(__dirname, '../../gt_app/src/main/webapp/manage/index.html'),
         assetsRoot: path.resolve(__dirname, '../../gt_app/src/main/webapp/manage'),
         assetsSubDirectory: 'static',
         assetsPublicPath: '/',
