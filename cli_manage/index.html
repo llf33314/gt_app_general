@@ -27,6 +27,10 @@
         <% for (var cssFilePath of htmlWebpackPlugin.files.css) { %>
             <link rel="preload" href="<%= cssFilePath %>" as="style">
         <% } %>
+        <script>
+            //服务器地址
+            var request = 'http://192.168.3.98:8401';
+        </script>
     </head>
     <body>
         <div id="app"></div>
