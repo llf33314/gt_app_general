@@ -1,6 +1,6 @@
 'use strict'
 /**
- * @file axios请求封装
+ * @file axios 请求封装
  * @author dj
  */
 import axios from 'axios'
@@ -22,6 +22,7 @@ axios.defaults.headers = {
 
 //添加请求拦截器
 axios.interceptors.request.use(config => {
+    //纯数据展示不加全屏loding
     if (typeof config.data !== 'undefined' && Qs.stringify(config.data) !== '') {
         Indicator.open();
     }
@@ -33,10 +34,11 @@ axios.interceptors.request.use(config => {
 
 //添加返回拦截器
 axios.interceptors.response.use(response => {
-    if (response.data && response.data.code === 100) {
+    if (response.data.code === 100) {
         return response.data;
     } else if (response.data.message) {
-        return checkCode(response.data.message)
+        checkCode(response.data.message)
+        return response.data;
     } else {
         Indicator.close()
         // 弹出错误信息
@@ -104,10 +106,8 @@ function checkCode(message) {
 export default {
     post(obj) {
         return axios.post(obj.url, obj.params).then(res => {
-            if (typeof res !== 'undefined' && res.data) {
+            if (res.data) {
                 obj.fn(res.data)
-            } else {
-                obj.fn(res)
             }
             Indicator.close()
         }).catch(err => {
@@ -116,10 +116,8 @@ export default {
     },
     get(obj) {
         return axios.get(obj.url, obj.params).then(res => {
-            if (typeof res !== 'undefined' && res.data) {
+            if (res.data) {
                 obj.fn(res.data)
-            } else {
-                obj.fn(res)
             }
             Indicator.close()
         }).catch(err => {
@@ -128,10 +126,8 @@ export default {
     },
     put(obj) {
         return axios.put(obj.url, obj.params).then(res => {
-            if (typeof res !== 'undefined' && res.data) {
+            if (res.data) {
                 obj.fn(res.data)
-            } else {
-                obj.fn(res)
             }
             Indicator.close()
         }).catch(err => {
@@ -140,10 +136,8 @@ export default {
     },
     delete(obj) {
         return axios.delete(obj.url, obj.params).then(res => {
-            if (typeof res !== 'undefined' && res.data) {
+            if (res.data) {
                 obj.fn(res.data)
-            } else {
-                obj.fn(res)
             }
             Indicator.close()
         }).catch(err => {
