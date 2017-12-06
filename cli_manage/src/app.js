@@ -12,6 +12,7 @@ import './assets/iconfont/iconfont.js';
 import "normalize.css";
 import "./assets/css/theme.less";
 import 'lib-flexible';
+import './assets/js/util.js';
 import store from './assets/js/store.js';
 
 Vue.use(MintUI)
