@@ -11,7 +11,7 @@ export function createRouter() {
     let router = new Router({
 
         // history 模式，需要服务器后端配合做路由代理，将所有的前端路由同步代理到 /
-        mode: 'history',
+        // mode: 'history',
         scrollBehavior(to, from, savedPosition) {
             if (savedPosition) {
                 return savedPosition;
@@ -23,7 +23,7 @@ export function createRouter() {
         },
         routes: [{
             path: '/',
-            redirect: '/index',
+            component: Index,
         }, {
             path: '/index',
             component: Index,
