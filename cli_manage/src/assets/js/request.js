@@ -38,7 +38,6 @@ axios.interceptors.response.use(response => {
         return response.data;
     } else if (response.data.message) {
         checkCode(response.data.message)
-        return response.data;
     } else {
         Indicator.close()
         // 弹出错误信息
@@ -47,8 +46,8 @@ axios.interceptors.response.use(response => {
             position: 'middle',
             duration: 5000
         });
-        return response;
     }
+    return '';
 }, error => {
     Indicator.close()
     if (error && error.response) {
@@ -106,7 +105,7 @@ function checkCode(message) {
 export default {
     post(obj) {
         return axios.post(obj.url, obj.params).then(res => {
-            if (res.data) {
+            if (typeof res.data != 'undefined') {
                 obj.fn(res.data)
             }
             Indicator.close()
@@ -116,7 +115,7 @@ export default {
     },
     get(obj) {
         return axios.get(obj.url, obj.params).then(res => {
-            if (res.data) {
+            if (typeof res.data != 'undefined') {
                 obj.fn(res.data)
             }
             Indicator.close()
@@ -126,7 +125,7 @@ export default {
     },
     put(obj) {
         return axios.put(obj.url, obj.params).then(res => {
-            if (res.data) {
+            if (typeof res.data != 'undefined') {
                 obj.fn(res.data)
             }
             Indicator.close()
@@ -136,7 +135,7 @@ export default {
     },
     delete(obj) {
         return axios.delete(obj.url, obj.params).then(res => {
-            if (res.data) {
+            if (typeof res.data != 'undefined') {
                 obj.fn(res.data)
             }
             Indicator.close()
