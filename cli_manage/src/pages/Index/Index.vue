@@ -3,20 +3,22 @@
         <!--用户信息-->
         <div class="index-user">
           <div class="index-user-row" v-if="userInfo.name">
-            <span class="flex-1 text-xs">{{userInfo.name}}</span>
-            <span class="flex-1 text-right text-xs">剩余 <b class="text-md">{{userInfo.expireDay}}</b> 天</span>            
+            <span class="flex-1 text-md">{{userInfo.name}}</span>
+            <span class="flex-1 text-right text-sx">剩余 <b class="text-md">{{userInfo.expireDay}}</b> 天</span>            
           </div>
           <div class="index-user-row" v-if="userInfo.name">
             <span class="flex-1">
               <span class="index-user-iden">
-                <svg class="icon" aria-hidden="true">
-                  <use v-if="userInfo.versionCode == 4" xlink:href="#icon-zhizunban"></use>
-                  <use v-else xlink:href="#icon-zhizunban"></use>
-                </svg>
-                <span class="text text-xs">{{userInfo.version}}</span>
+                <div class="flex-middle">
+                  <svg class="icon" aria-hidden="true">
+                    <use v-if="userInfo.versionCode == 4" xlink:href="#icon-zhizunban"></use>
+                    <use v-else xlink:href="#icon-zhizunban"></use>
+                  </svg>
+                  <span class="text text-sx">{{userInfo.version}}</span>
+                </div>
               </span>
             </span>
-            <span class="flex-1 text-right text-xs">{{new Date(userInfo.expireDate).toLocaleString()}}</span>            
+            <span class="flex-1 text-right text-sx">{{new Date(userInfo.expireDate).Format("yyyy-MM-dd")}}</span>            
           </div>
         </div>
         <!--账户信息-->
@@ -100,9 +102,15 @@ export default {
       let msg = "现在还没地方跳转啊，不过你既然点了，还是要给点反应 0.0";
       if (parseInt(this.clickCount) >= 5 && parseInt(this.clickCount) < 20) {
         msg = "不要再点我啦 - -#";
-      } else if (parseInt(this.clickCount) >= 20 && parseInt(this.clickCount) < 22) {
+      } else if (
+        parseInt(this.clickCount) >= 20 &&
+        parseInt(this.clickCount) < 22
+      ) {
         msg = "好吧，你点吧，我帮你计数";
-      } else if (parseInt(this.clickCount) > 21 && parseInt(this.clickCount) < 999) {
+      } else if (
+        parseInt(this.clickCount) > 21 &&
+        parseInt(this.clickCount) < 999
+      ) {
         msg = "你已经点了我 " + this.clickCount + " 下";
       } else if (parseInt(this.clickCount) > 999) {
         msg = "厉害了！我的哥！你点 " + this.clickCount + " 下！";
@@ -160,7 +168,7 @@ export default {
     width: 100%;
     height: 208px/@p;
     color: @white;
-    padding: 0 20px;
+    padding: 0 50px/@p;
     background: -moz-linear-gradient(
       right top,
       left bottom,
@@ -195,7 +203,7 @@ export default {
     );
     .index-user-row {
       display: flex;
-      padding: 7px 0;
+      padding: 5px 0;
       align-items: center;
       .index-user-iden {
         height: 66px/@p;
@@ -204,15 +212,13 @@ export default {
         background-color: #ff9d90;
         .icon {
           font-size: 20px;
-          padding-top: 1px;
-          vertical-align: middle;
         }
         .text {
+          padding-left: 10px/@p;
           line-height: 66px/@p;
           word-wrap: normal;
           text-overflow: ellipsis;
           overflow: hidden;
-          vertical-align: middle;
         }
       }
       .text-md {
