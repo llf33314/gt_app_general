@@ -23,6 +23,9 @@ export function createRouter() {
         },
         routes: [{
             path: '/',
+            redirect: '/index',
+        }, {
+            path: '/index',
             component: Index,
         }]
     });
