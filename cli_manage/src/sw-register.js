@@ -8,7 +8,7 @@ navigator.serviceWorker && navigator.serviceWorker.register('/service-worker.js'
     navigator.serviceWorker.addEventListener('message', e => {
         // service-worker.js 如果更新成功会 postMessage 给页面，内容为 'sw.update'
         if (e.data === 'sw.update') {
-            
+            /*
             let dom = document.createElement('div');
             let themeColor = document.querySelector('meta[name=theme-color]');
             themeColor && (themeColor.content = '#000');
@@ -30,10 +30,10 @@ navigator.serviceWorker && navigator.serviceWorker.register('/service-worker.js'
 
             document.body.appendChild(dom);
             setTimeout(() => document.getElementById('app-refresh').className += ' app-refresh-show', 16);
+            */
             
-
             //代码更新自动刷新页面
-            // setTimeout(() => location.reload(), 16);
+            setTimeout(() => location.reload(), 50);
         }
     });
 });

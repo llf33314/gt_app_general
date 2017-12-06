@@ -12,6 +12,14 @@ export default {
   name: "skeleton"
 };
 </script>
+<style lang="less">
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+</style>
+
 <style lang="less" scoped>
 .index {
   width: 100%;

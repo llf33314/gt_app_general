@@ -9,7 +9,7 @@ import Vuex from 'vuex';
 Vue.use(Vuex);
 
 const store = new Vuex.Store({
-    //变量申明
+    //数据源申明
     state: {
         //行业对应模板
         industry: {
@@ -20,7 +20,7 @@ const store = new Vuex.Store({
         token: '',
         clickCount: 0
     },
-    //写入缓存
+    //写入缓存并同步state
     mutations: {
         userId: (state, val) => {
             state.userId = val;
