@@ -1,6 +1,6 @@
 /**
  * @file 项目所有的配置文件
- * @author dj(1193933@qq.com)
+ * @author dj
  */
 
 'use strict';

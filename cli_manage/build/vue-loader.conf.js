@@ -1,6 +1,6 @@
 /**
  * @file vue-loader 配置文件
- * @author dj(1193933@qq.com)
+ * @author dj
  */
 
 'use strict';

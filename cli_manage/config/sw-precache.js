@@ -6,7 +6,7 @@
  * https://github.com/GoogleChrome/sw-precache#handlefetch-boolean
  * https://metaquant.org/programing/sw-precache-guide.html
  *
- * @author dj(1193933@qq.com)
+ * @author dj
  */
 
 module.exports = {

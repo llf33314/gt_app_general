@@ -1,9 +1,15 @@
+'use strict'
+/**
+ * @file Vuex 状态封装
+ * @author dj
+ */
 import Vue from 'vue';
 import Vuex from 'vuex';
 
 Vue.use(Vuex);
 
 const store = new Vuex.Store({
+    //变量申明
     state: {
         //行业对应模板
         industry: {
@@ -11,17 +17,22 @@ const store = new Vuex.Store({
             5: "home"
         },
         userId: 0,
-        token: ''
+        token: '',
+        clickCount: 0
     },
-
+    //写入缓存
     mutations: {
-        userId(state, val) {
+        userId: (state, val) => {
             state.userId = val;
             window.localStorage.setItem('userId', val);
         },
-        token(state, val) {
+        token: (state, val) => {
             state.token = val;
             window.localStorage.setItem('token', val);
+        },
+        clickCount: (state, val) => {
+            state.clickCount = val;
+            window.localStorage.setItem('clickCount', val);
         },
     }
 })

@@ -1,7 +1,9 @@
 'use strict'
 /**
- * 页面接口工具类
+ * @file 接口模块
+ * @author dj
  */
+
 import $api from "./request.js"
 
 const index = {
@@ -9,7 +11,6 @@ const index = {
     getAccountInfo(obj) {
         return $api.post({
             url: '/app/bus/getAccountInfo',
-            params: obj.params,
             fn: obj.fn
         })
     },
@@ -24,7 +25,6 @@ const index = {
     listIndustry(obj) {
         return $api.post({
             url: '/app/bus/listIndustry',
-            params: obj.params,
             fn: obj.fn
         })
     }
