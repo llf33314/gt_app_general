@@ -2,8 +2,10 @@ package com.gt.app.core.service.manage.bus;
 
 import com.gt.app.core.bean.manage.res.AccountInfoRes;
 import com.gt.app.core.bean.manage.res.IndustryRes;
+import com.gt.app.core.bean.manage.res.LoginAccountRes;
 import com.gt.axis.bean.wxmp.bus.BusUser;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -29,4 +31,11 @@ public interface BusManageService {
      * @return
      */
     List<IndustryRes> listIndustry(BusUser busUser) throws Exception;
+
+    /**
+     * 获取登录账号信息
+     * @param request
+     * @return
+     */
+    LoginAccountRes getLoginAccount(HttpServletRequest request);
 }

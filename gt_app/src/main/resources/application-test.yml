@@ -11,6 +11,9 @@ gt:
   axis:
     wxmpUrl: https://deeptel.com.cn/
     wxmpSignKey: WXMP2017
+  app:
+    mainUrl: http://192.168.3.98:8401
+    homeUrl: ${gt.app.mainUrl}/manage/#/index
 
 ################ redis and mysql
 spring:

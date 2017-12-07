@@ -1,8 +1,13 @@
 package com.gt.app.core.service.manage.bus.impl;
 
+import com.gt.app.common.enums.AccountEnums;
+import com.gt.app.common.enums.ResponseEnums;
 import com.gt.app.core.bean.manage.res.AccountInfoRes;
 import com.gt.app.core.bean.manage.res.IndustryRes;
+import com.gt.app.core.bean.manage.res.LoginAccountRes;
+import com.gt.app.core.exception.manage.BusException;
 import com.gt.app.core.service.manage.bus.BusManageService;
+import com.gt.app.core.util.CommonUtil;
 import com.gt.app.core.util.DateTimeKit;
 import com.gt.axis.bean.wxmp.bus.BusUser;
 import com.gt.axis.bean.wxmp.dict.DictApiReq;
@@ -13,8 +18,11 @@ import com.gt.axis.bean.wxmp.fenbiflow.BusFlowRes;
 import com.gt.axis.server.wxmp.DictServer;
 import com.gt.axis.server.wxmp.ErpServer;
 import com.gt.axis.server.wxmp.FenbiflowServer;
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -28,10 +36,37 @@ import java.util.List;
 @Service
 public class BusManageServiceImpl implements BusManageService {
 
+    private static final Logger logger = Logger.getLogger(BusManageServiceImpl.class);
+
+    @Value("${gt.app.homeUrl}")
+    private String homeUrl;
+
     /**
      * 版本字典
      */
     private static final String versionDict = "1004";
+
+    /**
+     * 获取登录账号信息
+     *
+     * @param request
+     * @return
+     */
+    @Override
+    public LoginAccountRes getLoginAccount(HttpServletRequest request) {
+        LoginAccountRes loginAccountRes = new LoginAccountRes();
+        Integer loginStyle = CommonUtil.getLoginAccount(request);
+        if (CommonUtil.isEmpty(loginStyle)) {
+            throw new BusException(ResponseEnums.SESSION_ACCOUNT_NULL);
+        }
+        loginAccountRes.setAccountType(loginStyle);
+        loginAccountRes.setHomeUrl(null);
+        if (AccountEnums.BOOS.getCode().equals(loginStyle)) {
+            logger.debug(homeUrl);
+            loginAccountRes.setHomeUrl(homeUrl);
+        }
+        return loginAccountRes;
+    }
 
     /**
      * 获取账号信息
@@ -55,15 +90,15 @@ public class BusManageServiceImpl implements BusManageService {
         DictApiReq dictApiReq = new DictApiReq();
         dictApiReq.setStyle(versionDict);
         List<DictApiRes> dictApiResList = DictServer.getDictApi(dictApiReq).getData();
-        for (DictApiRes dictApiRes : dictApiResList){
-            if (dictApiRes.getItemKey().equals(versionCode)){
+        for (DictApiRes dictApiRes : dictApiResList) {
+            if (dictApiRes.getItemKey().equals(versionCode)) {
                 accountInfoRes.setVersion(dictApiRes.getItemValue());
             }
         }
         // 获取流量
         List<BusFlowRes> busFlowResList = FenbiflowServer.getBusFlowsByUserId(busUser.getId()).getData();
         int flowNum = 0;
-        for (BusFlowRes busFlowRes : busFlowResList){
+        for (BusFlowRes busFlowRes : busFlowResList) {
             flowNum += busFlowRes.getCount();
         }
         accountInfoRes.setFlowNum(flowNum);
@@ -83,10 +118,12 @@ public class BusManageServiceImpl implements BusManageService {
         erpApiReq.setUserId(busUser.getId());
         List<MenusLevelList> menusLevelLists = ErpServer.getErpListApi(erpApiReq).getData();
         List<IndustryRes> industryResList = new ArrayList<>();
-        for (MenusLevelList menusLevelList : menusLevelLists){
+        for (MenusLevelList menusLevelList : menusLevelLists) {
             IndustryRes industryRes = new IndustryRes();
             industryRes.setCode(menusLevelList.getErpmodel());
             industryRes.setName(menusLevelList.getErpname());
+            industryRes.setStatus(0);
+            industryRes.setUrl("");
             industryResList.add(industryRes);
         }
         return industryResList;

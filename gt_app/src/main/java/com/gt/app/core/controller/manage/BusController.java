@@ -4,6 +4,7 @@ import com.gt.app.common.base.BaseController;
 import com.gt.app.common.dto.ResponseDTO;
 import com.gt.app.core.bean.manage.res.AccountInfoRes;
 import com.gt.app.core.bean.manage.res.IndustryRes;
+import com.gt.app.core.bean.manage.res.LoginAccountRes;
 import com.gt.app.core.bean.manage.res.industryinfo.CarInfoRes;
 import com.gt.app.core.bean.manage.res.industryinfo.PropertyInfoRes;
 import com.gt.app.core.exception.manage.BusException;
@@ -32,15 +33,35 @@ import java.util.List;
  * @author psr
  *         Created by psr on 2017/12/1 0001.
  */
-@Api(value = "/app/bus", description = "商家信息")
+@Api(value = "/app/manage/bus", description = "商家信息")
 @RestController
-@RequestMapping(value = "/app/bus")
+@RequestMapping(value = "/app/manage/bus")
 public class BusController extends BaseController {
 
     private static Logger logger = Logger.getLogger(BusController.class);
 
     @Autowired
     BusManageService busManageService;
+
+    // 获取账号信息
+    @ApiResponses({
+            @ApiResponse(code = 0, message = "统一响应对象", response = ResponseDTO.class),
+            @ApiResponse(code = 1, message = "data对象", response = LoginAccountRes.class),
+    })
+    @ApiOperation(value = "获取登录账号信息（APP使用）", notes = "获取登录账号信息（APP使用）")
+    @RequestMapping(value = "/getLoginAccount", method = RequestMethod.POST)
+    public ResponseDTO getLoginAccount(HttpServletRequest request) {
+        try {
+            LoginAccountRes loginAccountRes = busManageService.getLoginAccount(request);
+            return ResponseDTO.createBySuccess("获取登录账号信息成功", loginAccountRes);
+        } catch (BusException e) {
+            logger.error(e.getMessage(), e.fillInStackTrace());
+            return ResponseDTO.createByErrorCodeMessage(e.getCode(), e.getMessage());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseDTO.createByError();
+        }
+    }
 
     // 获取账号信息
     @ApiResponses({

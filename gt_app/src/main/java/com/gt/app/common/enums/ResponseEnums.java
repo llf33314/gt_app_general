@@ -17,6 +17,7 @@ public enum ResponseEnums {
     BUS_NULL(304, "数据不存在"),
     PARAM_NULL(305, "参数缺失"),
     // 400+针对自己的错误
+    SESSION_ACCOUNT_NULL(401, "账号类型为空"),
     ;
 
     private final int code;

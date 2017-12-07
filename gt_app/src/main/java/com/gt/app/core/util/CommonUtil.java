@@ -1,7 +1,9 @@
 package com.gt.app.core.util;
 
 
+import com.gt.api.bean.session.TCommonStaff;
 import com.gt.api.util.SessionUtils;
+import com.gt.app.common.enums.AccountEnums;
 import com.gt.app.common.enums.ResponseEnums;
 import com.gt.app.common.exception.SystemException;
 import com.gt.axis.bean.wxmp.bus.BusUser;
@@ -21,7 +23,7 @@ public class CommonUtil {
     private static final Logger log = Logger.getLogger(CommonUtil.class);
 
     /**
-     * 获取session中的登录用户
+     * 获取session中的登录的bus用户
      *
      * @param request
      * @return
@@ -33,6 +35,41 @@ public class CommonUtil {
 //            busUserApiReq.setUserId(apiBusUser.getId());
             busUserApiReq.setUserId(36);
             return BusServer.getBusUserApi(busUserApiReq).getData();
+        } catch (Exception e) {
+            log.info(e.getLocalizedMessage());
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
+     * 获取session中的登录的员工账号
+     *
+     * @param request
+     * @return
+     */
+    public static TCommonStaff getLoginStaff(HttpServletRequest request) {
+        try {
+            TCommonStaff tCommonStaff = SessionUtils.getCommonStaff(request);
+            return tCommonStaff;
+        } catch (Exception e) {
+            log.info(e.getLocalizedMessage());
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
+     * 获取session中的登录的账号类型
+     *
+     * @param request
+     * @return
+     */
+    public static Integer getLoginAccount(HttpServletRequest request) {
+        try {
+            Integer loginStyle = SessionUtils.getLoginStyle(request);
+//            return loginStyle;
+            return 1;
         } catch (Exception e) {
             log.info(e.getLocalizedMessage());
             e.printStackTrace();
