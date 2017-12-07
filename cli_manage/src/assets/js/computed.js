@@ -11,7 +11,7 @@ const computed = mapState({
         return state.industry;
     },
     userId: state => {
-        if (state.user_id === 0 && window.localStorage.getItem("userId")) {
+        if (state.userId === 0 && window.localStorage.getItem("userId")) {
             store.commit("userId", window.localStorage.getItem("userId"));
         }
         return state.userId;
