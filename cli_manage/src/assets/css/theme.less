@@ -13,7 +13,9 @@ html {
     -moz-osx-font-smoothing: grayscale;
     color: @color;
     background-color: @bgColor;
-} //顶部菜单
+}
+
+//顶部菜单
 .mint-header {
     color: @color !important;
     background-color: @bgColor !important;
@@ -35,6 +37,12 @@ span {
 
 ul li {
     list-style-type: none;
+}
+
+//去除Chrome input 默认背景色与边框
+input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0px 1000px white inset !important;
+    outline: none;
 }
 
 

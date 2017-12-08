@@ -140,18 +140,14 @@ export default {
     const vm = this;
     //获取账号信息
     index.getAccountInfo({
-      fn: data => {
-        vm.userInfo = data;
-      }
-    });
-    //获取账号对应的行业列表
-    index.listIndustry({
-      fn: data => {
-        for (let i = 0; i < data.length; i++) {
-          if (typeof vm.industry[data[i].code] !== "undefined") {
+      fn: res => {
+        vm.userInfo = res[0].data;
+
+        for (let i = 0; i < res[1].data.length; i++) {
+          if (typeof vm.industry[res[1].data[i].code] !== "undefined") {
             vm.userModule.push({
-              component: vm.industry[data[i].code],
-              text: data[i].name
+              component: vm.industry[res[1].data[i].code],
+              text: res[1].data[i].name
             });
           }
         }

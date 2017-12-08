@@ -1,1 +1,1 @@
-navigator.serviceWorker&&navigator.serviceWorker.register('./service-worker.js?v=20171207152715').then(function(){navigator.serviceWorker.addEventListener('message',function(e){if(e.data==='sw.update'){setTimeout(function(){return location.reload()},50)}})});
+navigator.serviceWorker&&navigator.serviceWorker.register('./service-worker.js?v=20171208200742').then(function(){navigator.serviceWorker.addEventListener('message',function(e){if(e.data==='sw.update'){setTimeout(function(){return location.reload()},50)}})});

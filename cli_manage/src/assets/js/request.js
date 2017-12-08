@@ -9,6 +9,7 @@ import { Toast } from 'mint-ui';
 import { Indicator } from 'mint-ui';
 
 const request = window.request
+let tip = "";
 
 axios.defaults.baseURL = request;
 //响应时间
@@ -23,9 +24,7 @@ axios.defaults.headers = {
 //添加请求拦截器
 axios.interceptors.request.use(config => {
     //纯数据展示不加全屏loding
-    if (typeof config.data !== 'undefined' && Qs.stringify(config.data) !== '') {
-        Indicator.open();
-    }
+    Indicator.open();
     return config
 }, error => {
     Indicator.close()
@@ -40,8 +39,11 @@ axios.interceptors.response.use(response => {
         checkCode(response.data.message)
     } else {
         Indicator.close()
+        if (tip != "") {
+            tip.close()
+        }
         // 弹出错误信息
-        Toast({
+        tip = Toast({
             message: '操作失败，请重试',
             position: 'middle',
             duration: 5000
@@ -95,8 +97,11 @@ axios.interceptors.response.use(response => {
 //请求失败错误信息提示
 function checkCode(message) {
     Indicator.close()
+    if (tip != "") {
+        tip.close()
+    }
     // 弹出错误信息
-    Toast({
+    tip = Toast({
         message: message,
         position: 'middle',
         duration: 5000
@@ -105,7 +110,7 @@ function checkCode(message) {
 export default {
     post(obj) {
         return axios.post(obj.url, obj.params).then(res => {
-            if (typeof res.data != 'undefined') {
+            if (typeof res.data != 'undefined' && typeof obj.fn != 'undefined') {
                 obj.fn(res.data)
             }
             Indicator.close()
@@ -143,4 +148,14 @@ export default {
             checkCode(err.message)
         })
     },
+    all(obj) {
+        return axios.all(obj.url).then(res => {
+            if (res.length > 0) {
+                obj.fn(res)
+            }
+            Indicator.close()
+        }).catch(err => {
+            checkCode(err.message)
+        })
+    }
 }
