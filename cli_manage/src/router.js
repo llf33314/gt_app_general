@@ -8,10 +8,7 @@ import Router from 'vue-router';
 import Index from './pages/Index/Index';
 Vue.use(Router);
 export function createRouter() {
-    let router = new Router({
-
-        // history 模式，需要服务器后端配合做路由代理，将所有的前端路由同步代理到 /
-        // mode: 'history',
+    const router = new Router({
         scrollBehavior(to, from, savedPosition) {
             if (savedPosition) {
                 return savedPosition;
@@ -34,6 +31,16 @@ export function createRouter() {
             },
             component: Index,
         }]
+    });
+
+    //全局路由守卫-拦截
+    router.beforeEach((to, from, next) => {
+        if (typeof to.meta.requireAuth == "undefined" || to.meta.requireAuth) {
+            next();
+            //TODO App Shell登录
+        } else {
+            next();
+        }
     });
 
     return router;

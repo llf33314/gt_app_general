@@ -8,10 +8,7 @@ import Qs from 'qs'
 import { Toast } from 'mint-ui';
 import { Indicator } from 'mint-ui';
 
-const request = window.request
-let tip = "";
-
-axios.defaults.baseURL = request;
+axios.defaults.baseURL = window.request;
 //响应时间
 axios.defaults.timeout = 10000;
 //`withCredentails`选项表明了是否是跨域请求
@@ -41,11 +38,11 @@ axios.interceptors.response.use(response => {
         checkCode(response.data.message)
     } else {
         Indicator.close()
-        if (tip != "") {
-            tip.close()
+        if (window.toast != "") {
+            window.toast.close()
         }
         // 弹出错误信息
-        tip = Toast({
+        window.toast = Toast({
             message: '操作失败，请重试',
             position: 'middle',
             duration: 5000
@@ -99,11 +96,11 @@ axios.interceptors.response.use(response => {
 //请求失败错误信息提示
 function checkCode(message) {
     Indicator.close()
-    if (tip != "") {
-        tip.close()
+    if (window.toast != "") {
+        window.toast.close()
     }
     // 弹出错误信息
-    tip = Toast({
+    window.toast = Toast({
         message: message,
         position: 'middle',
         duration: 5000

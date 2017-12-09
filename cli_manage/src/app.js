@@ -20,8 +20,8 @@ Vue.config.productionTip = true;
 
 /* eslint-disable no-new */
 export function createApp() {
-    let router = createRouter();
-    let app = new Vue({
+    const router = createRouter();
+    const app = new Vue({
         router,
         store,
         ...App
