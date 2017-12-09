@@ -12,6 +12,14 @@ export default {
   name: "skeleton"
 };
 </script>
+<style lang="less">
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+</style>
+
 <style lang="less" scoped>
 .index {
   width: 100%;
@@ -23,33 +31,6 @@ export default {
     height: 208px/@p;
     color: @white;
     padding: 0 50px/@p;
-    background: -moz-linear-gradient(
-      right top,
-      left bottom,
-      @indexLeftBottom 0%,
-      @indexRightTop 100%
-    );
-    background: -webkit-gradient(
-      linear,
-      right top,
-      color-stop(0%, @indexLeftBottom),
-      color-stop(100%, @indexRightTop)
-    );
-    background: -webkit-linear-gradient(
-      right top,
-      @indexLeftBottom 0%,
-      @indexRightTop 100%
-    );
-    background: -o-linear-gradient(
-      right top,
-      @indexLeftBottom 0%,
-      @indexRightTop 100%
-    );
-    background: -ms-linear-gradient(
-      right top,
-      @indexLeftBottom 0%,
-      @indexRightTop 100%
-    );
     background: linear-gradient(
       to right top,
       @indexLeftBottom 0%,

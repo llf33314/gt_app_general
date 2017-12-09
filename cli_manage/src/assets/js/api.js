@@ -4,13 +4,14 @@
  * @author dj
  */
 
+import axios from 'axios'
 import $api from "./request.js"
 
 const index = {
-    //获取账号信息
+    //获取账号信息与行业列表
     getAccountInfo(obj) {
-        return $api.post({
-            url: '/app/bus/getAccountInfo',
+        return $api.all({
+            url: [axios.post('/app/bus/getAccountInfo'), axios.post('/app/bus/listIndustry')],
             fn: obj.fn
         })
     },
@@ -18,16 +19,10 @@ const index = {
     getIndustryInfo(obj) {
         return $api.post({
             url: '/app/bus/getIndustryInfo/' + obj.params,
+            params: false,
             fn: obj.fn
         })
     },
-    //获取账号对应的行业列表
-    listIndustry(obj) {
-        return $api.post({
-            url: '/app/bus/listIndustry',
-            fn: obj.fn
-        })
-    }
 }
 
 export {

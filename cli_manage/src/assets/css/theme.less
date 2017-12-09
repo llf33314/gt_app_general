@@ -13,7 +13,9 @@ html {
     -moz-osx-font-smoothing: grayscale;
     color: @color;
     background-color: @bgColor;
-} //顶部菜单
+}
+
+//顶部菜单
 .mint-header {
     color: @color !important;
     background-color: @bgColor !important;
@@ -35,6 +37,12 @@ span {
 
 ul li {
     list-style-type: none;
+}
+
+//去除Chrome input 默认背景色与边框
+input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0px 1000px white inset !important;
+    outline: none;
 }
 
 
@@ -1016,11 +1024,6 @@ ul li {
 
 .carModule {
     .icon-bg {
-        background: -moz-linear-gradient( left, right, @carIconLeft 0%, @carIconRight 100%);
-        background: -webkit-gradient( linear, right, color-stop(0%, @carIconLeft), color-stop(100%, @carIconRight));
-        background: -webkit-linear-gradient( right, @carIconLeft 0%, @carIconRight 100%);
-        background: -o-linear-gradient( right, @carIconLeft 0%, @carIconRight 100%);
-        background: -ms-linear-gradient( right, @carIconLeft 0%, @carIconRight 100%);
         background: linear-gradient( to right, @carIconLeft 0%, @carIconRight 100%);
     }
     .index-info-content {
@@ -1036,11 +1039,6 @@ ul li {
 
 .homeModule {
     .icon-bg {
-        background: -moz-linear-gradient( left, right, @homeIconLeft 0%, @homeIconRight 100%);
-        background: -webkit-gradient( linear, right, color-stop(0%, @homeIconLeft), color-stop(100%, @homeIconRight));
-        background: -webkit-linear-gradient( right, @homeIconLeft 0%, @homeIconRight 100%);
-        background: -o-linear-gradient( right, @homeIconLeft 0%, @homeIconRight 100%);
-        background: -ms-linear-gradient( right, @homeIconLeft 0%, @homeIconRight 100%);
         background: linear-gradient( to right, @homeIconLeft 0%, @homeIconRight 100%);
     }
     .index-info-content {
@@ -1056,11 +1054,6 @@ ul li {
 
 .shopModule {
     .icon-bg {
-        background: -moz-linear-gradient( left, right, @shopIconLeft 0%, @shopIconRight 100%);
-        background: -webkit-gradient( linear, right, color-stop(0%, @shopIconLeft), color-stop(100%, @shopIconRight));
-        background: -webkit-linear-gradient( right, @shopIconLeft 0%, @shopIconRight 100%);
-        background: -o-linear-gradient( right, @shopIconLeft 0%, @shopIconRight 100%);
-        background: -ms-linear-gradient( right, @shopIconLeft 0%, @shopIconRight 100%);
         background: linear-gradient( to right, @shopIconLeft 0%, @shopIconRight 100%);
         .icon {
             font-size: 13px;

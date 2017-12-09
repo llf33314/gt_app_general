@@ -1,6 +1,6 @@
 'use strict'
 /**
- * @file axios请求封装
+ * @file axios 请求封装
  * @author dj
  */
 import axios from 'axios'
@@ -9,6 +9,7 @@ import { Toast } from 'mint-ui';
 import { Indicator } from 'mint-ui';
 
 const request = window.request
+let tip = "";
 
 axios.defaults.baseURL = request;
 //响应时间
@@ -22,7 +23,8 @@ axios.defaults.headers = {
 
 //添加请求拦截器
 axios.interceptors.request.use(config => {
-    if (typeof config.data !== 'undefined' && Qs.stringify(config.data) !== '') {
+    //是否加全屏loding
+    if (config.data !== false) {
         Indicator.open();
     }
     return config
@@ -33,20 +35,23 @@ axios.interceptors.request.use(config => {
 
 //添加返回拦截器
 axios.interceptors.response.use(response => {
-    if (response.data && response.data.code === 100) {
+    if (response.data.code === 100) {
         return response.data;
     } else if (response.data.message) {
-        return checkCode(response.data.message)
+        checkCode(response.data.message)
     } else {
         Indicator.close()
+        if (tip != "") {
+            tip.close()
+        }
         // 弹出错误信息
-        Toast({
+        tip = Toast({
             message: '操作失败，请重试',
             position: 'middle',
             duration: 5000
         });
-        return response;
     }
+    return '';
 }, error => {
     Indicator.close()
     if (error && error.response) {
@@ -55,7 +60,7 @@ axios.interceptors.response.use(response => {
                 error.message = '请求错误'
                 break
             case 401:
-                error.message = '访问失败，请重试'
+                error.message = '访问失败，请登录'
                 break
             case 403:
                 error.message = '拒绝访问'
@@ -94,8 +99,11 @@ axios.interceptors.response.use(response => {
 //请求失败错误信息提示
 function checkCode(message) {
     Indicator.close()
+    if (tip != "") {
+        tip.close()
+    }
     // 弹出错误信息
-    Toast({
+    tip = Toast({
         message: message,
         position: 'middle',
         duration: 5000
@@ -104,10 +112,8 @@ function checkCode(message) {
 export default {
     post(obj) {
         return axios.post(obj.url, obj.params).then(res => {
-            if (typeof res !== 'undefined' && res.data) {
+            if (typeof res.data != 'undefined' && typeof obj.fn != 'undefined') {
                 obj.fn(res.data)
-            } else {
-                obj.fn(res)
             }
             Indicator.close()
         }).catch(err => {
@@ -116,10 +122,8 @@ export default {
     },
     get(obj) {
         return axios.get(obj.url, obj.params).then(res => {
-            if (typeof res !== 'undefined' && res.data) {
+            if (typeof res.data != 'undefined' && typeof obj.fn != 'undefined') {
                 obj.fn(res.data)
-            } else {
-                obj.fn(res)
             }
             Indicator.close()
         }).catch(err => {
@@ -128,10 +132,8 @@ export default {
     },
     put(obj) {
         return axios.put(obj.url, obj.params).then(res => {
-            if (typeof res !== 'undefined' && res.data) {
+            if (typeof res.data != 'undefined' && typeof obj.fn != 'undefined') {
                 obj.fn(res.data)
-            } else {
-                obj.fn(res)
             }
             Indicator.close()
         }).catch(err => {
@@ -140,14 +142,22 @@ export default {
     },
     delete(obj) {
         return axios.delete(obj.url, obj.params).then(res => {
-            if (typeof res !== 'undefined' && res.data) {
+            if (typeof res.data != 'undefined' && typeof obj.fn != 'undefined') {
                 obj.fn(res.data)
-            } else {
-                obj.fn(res)
             }
             Indicator.close()
         }).catch(err => {
             checkCode(err.message)
         })
     },
+    all(obj) {
+        return axios.all(obj.url).then(res => {
+            if (typeof obj.fn != 'undefined') {
+                obj.fn(res)
+            }
+            Indicator.close()
+        }).catch(err => {
+            checkCode(err.message)
+        })
+    }
 }
