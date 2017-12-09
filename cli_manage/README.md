@@ -11,7 +11,7 @@ npm install
 # 更新工程依赖
 npm update
 
-# 在 localhost:8082 上启动带有热更新机制的开发服务器
+# 在 localhost:8088 上启动带有热更新机制的开发服务器
 npm run dev
 
 # 构建线上生产环境产物

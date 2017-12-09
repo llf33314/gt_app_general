@@ -46,6 +46,7 @@
           <div class="index-trade" v-if="userInfo.name">
             <div class="index-trade-title">我的行业</div>
             <div class="index-trade-content">
+              <!-- 汽车 -->
               <span class="index-trade-col carModule" :key="item.text" v-for="item in userModule" v-if="item.component === 'car'" @click="jumpPages">
                 <span class="col-content">
                   <div class="icon-bg">
@@ -56,7 +57,8 @@
                   <div class="text">汽车</div>
                 </span>
               </span>
-              <span class="index-trade-col homeModule" v-else-if="item.component === 'home'" @click="jumpPages">
+              <!-- 物业 -->
+              <span class="index-trade-col homeModule" v-else-if="item.component === 'home'" @click="jumpPages(item.id)">
                 <span class="col-content">
                   <div class="icon-bg">
                     <svg class="icon" aria-hidden="true">
@@ -66,6 +68,7 @@
                   <div class="text">物业</div>
                 </span>
               </span>
+              <!-- 商城 -->
               <span class="index-trade-col shopModule" v-else-if="item.component === 'shop'" @click="jumpPages">
                 <span class="col-content">
                   <div class="icon-bg">
@@ -97,7 +100,9 @@ export default {
     };
   },
   methods: {
-    jumpPages() {
+    jumpPages(id) {
+      console.log(id)
+
       let count = parseInt(this.clickCount);
       if (isNaN(count)) {
         count = 0;
@@ -127,7 +132,8 @@ export default {
       // this.$router.push({
       //   path: "/indexPage"
       // });
-    }
+    },
+    
   },
   store: this.$store,
   computed,

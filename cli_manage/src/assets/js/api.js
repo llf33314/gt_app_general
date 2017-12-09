@@ -19,6 +19,7 @@ const index = {
     getIndustryInfo(obj) {
         return $api.post({
             url: '/app/bus/getIndustryInfo/' + obj.params,
+            params: false,
             fn: obj.fn
         })
     },

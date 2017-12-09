@@ -23,9 +23,15 @@ export function createRouter() {
         },
         routes: [{
             path: '/',
+            meta: {
+                keepAlive: true
+            },
             component: Index,
         }, {
             path: '/index',
+            meta: {
+                keepAlive: true
+            },
             component: Index,
         }]
     });

@@ -23,8 +23,10 @@ axios.defaults.headers = {
 
 //添加请求拦截器
 axios.interceptors.request.use(config => {
-    //纯数据展示不加全屏loding
-    Indicator.open();
+    //是否加全屏loding
+    if (config.data !== false) {
+        Indicator.open();
+    }
     return config
 }, error => {
     Indicator.close()
@@ -58,7 +60,7 @@ axios.interceptors.response.use(response => {
                 error.message = '请求错误'
                 break
             case 401:
-                error.message = '访问失败，请重试'
+                error.message = '访问失败，请登录'
                 break
             case 403:
                 error.message = '拒绝访问'
@@ -120,7 +122,7 @@ export default {
     },
     get(obj) {
         return axios.get(obj.url, obj.params).then(res => {
-            if (typeof res.data != 'undefined') {
+            if (typeof res.data != 'undefined' && typeof obj.fn != 'undefined') {
                 obj.fn(res.data)
             }
             Indicator.close()
@@ -130,7 +132,7 @@ export default {
     },
     put(obj) {
         return axios.put(obj.url, obj.params).then(res => {
-            if (typeof res.data != 'undefined') {
+            if (typeof res.data != 'undefined' && typeof obj.fn != 'undefined') {
                 obj.fn(res.data)
             }
             Indicator.close()
@@ -140,7 +142,7 @@ export default {
     },
     delete(obj) {
         return axios.delete(obj.url, obj.params).then(res => {
-            if (typeof res.data != 'undefined') {
+            if (typeof res.data != 'undefined' && typeof obj.fn != 'undefined') {
                 obj.fn(res.data)
             }
             Indicator.close()
@@ -150,7 +152,7 @@ export default {
     },
     all(obj) {
         return axios.all(obj.url).then(res => {
-            if (res.length > 0) {
+            if (typeof obj.fn != 'undefined') {
                 obj.fn(res)
             }
             Indicator.close()
