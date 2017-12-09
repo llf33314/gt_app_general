@@ -3,15 +3,11 @@ package com.gt.app.core.util;
 
 import com.gt.api.bean.session.TCommonStaff;
 import com.gt.api.util.SessionUtils;
-import com.gt.app.common.enums.AccountEnums;
 import com.gt.app.common.enums.ResponseEnums;
 import com.gt.app.common.exception.SystemException;
 import com.gt.axis.bean.wxmp.bus.BusUser;
 import com.gt.axis.bean.wxmp.bus.BusUserApiReq;
-import com.gt.axis.bean.wxmp.staff.StaffReq;
-import com.gt.axis.bean.wxmp.staff.StaffRes;
 import com.gt.axis.server.wxmp.BusServer;
-import com.gt.axis.server.wxmp.StaffServer;
 import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
@@ -34,6 +30,9 @@ public class CommonUtil {
     public static BusUser getLoginUser(HttpServletRequest request) {
         try {
             com.gt.api.bean.session.BusUser apiBusUser = SessionUtils.getLoginUser(request);
+            if (CommonUtil.isEmpty(apiBusUser)) {
+                log.debug("session busUser is null");
+            }
             BusUserApiReq busUserApiReq = new BusUserApiReq();
             busUserApiReq.setUserId(apiBusUser.getId());
 //            busUserApiReq.setUserId(36);
@@ -54,6 +53,9 @@ public class CommonUtil {
     public static TCommonStaff getLoginStaff(HttpServletRequest request) {
         try {
             TCommonStaff tCommonStaff = SessionUtils.getCommonStaff(request);
+            if (CommonUtil.isEmpty(tCommonStaff)) {
+                log.debug("session staff is null");
+            }
 //            TCommonStaff tCommonStaff = new TCommonStaff();
 //            StaffReq staffReq = new StaffReq();
 //            staffReq.setStaffId(210);
@@ -77,8 +79,11 @@ public class CommonUtil {
     public static Integer getLoginAccount(HttpServletRequest request) {
         try {
             Integer loginStyle = SessionUtils.getLoginStyle(request);
-//            return loginStyle;
-            return 1;
+            if (CommonUtil.isEmpty(loginStyle)) {
+                log.debug("session loginStyle is null");
+            }
+            return loginStyle;
+//            return 1;
         } catch (Exception e) {
             log.info(e.getLocalizedMessage());
             e.printStackTrace();
