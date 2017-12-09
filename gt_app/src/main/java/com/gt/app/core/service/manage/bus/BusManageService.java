@@ -1,6 +1,8 @@
 package com.gt.app.core.service.manage.bus;
 
+import com.gt.api.bean.session.TCommonStaff;
 import com.gt.app.core.bean.manage.res.AccountInfoRes;
+import com.gt.app.core.bean.manage.res.AccountInfoStaffRes;
 import com.gt.app.core.bean.manage.res.IndustryRes;
 import com.gt.app.core.bean.manage.res.LoginAccountRes;
 import com.gt.axis.bean.wxmp.bus.BusUser;
@@ -25,6 +27,14 @@ public interface BusManageService {
     AccountInfoRes getAccountInfo(BusUser busUser) throws Exception;
 
     /**
+     * 获取账号信息（员工）
+     *
+     * @param tCommonStaff
+     * @return
+     */
+    AccountInfoStaffRes getAccountInfo(TCommonStaff tCommonStaff) throws Exception;
+
+    /**
      * 获取账号对应的行业列表
      *
      * @param busUser
@@ -34,8 +44,10 @@ public interface BusManageService {
 
     /**
      * 获取登录账号信息
+     *
      * @param request
      * @return
      */
     LoginAccountRes getLoginAccount(HttpServletRequest request);
+
 }

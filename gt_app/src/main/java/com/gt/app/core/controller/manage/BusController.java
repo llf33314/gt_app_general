@@ -1,8 +1,12 @@
 package com.gt.app.core.controller.manage;
 
+import com.gt.api.bean.session.TCommonStaff;
 import com.gt.app.common.base.BaseController;
 import com.gt.app.common.dto.ResponseDTO;
+import com.gt.app.common.enums.AccountEnums;
+import com.gt.app.common.enums.ResponseEnums;
 import com.gt.app.core.bean.manage.res.AccountInfoRes;
+import com.gt.app.core.bean.manage.res.AccountInfoStaffRes;
 import com.gt.app.core.bean.manage.res.IndustryRes;
 import com.gt.app.core.bean.manage.res.LoginAccountRes;
 import com.gt.app.core.bean.manage.res.industryinfo.CarInfoRes;
@@ -66,12 +70,22 @@ public class BusController extends BaseController {
     // 获取账号信息
     @ApiResponses({
             @ApiResponse(code = 0, message = "统一响应对象", response = ResponseDTO.class),
-            @ApiResponse(code = 1, message = "data对象", response = AccountInfoRes.class),
+            @ApiResponse(code = 1, message = "data对象（老板）", response = AccountInfoRes.class),
+            @ApiResponse(code = 2, message = "data对象（员工）", response = AccountInfoStaffRes.class),
     })
     @ApiOperation(value = "获取账号信息", notes = "获取账号信息")
     @RequestMapping(value = "/getAccountInfo", method = RequestMethod.POST)
     public ResponseDTO getAccountInfo(HttpServletRequest request) {
         try {
+            Integer loginStyle = CommonUtil.getLoginAccount(request);
+            if (CommonUtil.isEmpty(loginStyle)) {
+                throw new BusException(ResponseEnums.SESSION_ACCOUNT_NULL);
+            }
+            if (AccountEnums.STAFF.getCode().equals(loginStyle)) {
+                TCommonStaff tCommonStaff = CommonUtil.getLoginStaff(request);
+                AccountInfoStaffRes accountInfoStaffRes = busManageService.getAccountInfo(tCommonStaff);
+                return ResponseDTO.createBySuccess("获取账号信息成功", accountInfoStaffRes);
+            }
             BusUser busUser = CommonUtil.getLoginUser(request);
             AccountInfoRes accountInfoRes = busManageService.getAccountInfo(busUser);
             return ResponseDTO.createBySuccess("获取账号信息成功", accountInfoRes);

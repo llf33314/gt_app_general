@@ -8,7 +8,10 @@ import com.gt.app.common.enums.ResponseEnums;
 import com.gt.app.common.exception.SystemException;
 import com.gt.axis.bean.wxmp.bus.BusUser;
 import com.gt.axis.bean.wxmp.bus.BusUserApiReq;
+import com.gt.axis.bean.wxmp.staff.StaffReq;
+import com.gt.axis.bean.wxmp.staff.StaffRes;
 import com.gt.axis.server.wxmp.BusServer;
+import com.gt.axis.server.wxmp.StaffServer;
 import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
@@ -50,7 +53,13 @@ public class CommonUtil {
      */
     public static TCommonStaff getLoginStaff(HttpServletRequest request) {
         try {
-            TCommonStaff tCommonStaff = SessionUtils.getCommonStaff(request);
+//            TCommonStaff tCommonStaff = SessionUtils.getCommonStaff(request);
+            TCommonStaff tCommonStaff = new TCommonStaff();
+            StaffReq staffReq = new StaffReq();
+            staffReq.setStaffId(210);
+            StaffRes staffRes = StaffServer.getStaffId(staffReq).getData();
+            tCommonStaff.setId(staffRes.getId());
+            tCommonStaff.setName(staffRes.getName());
             return tCommonStaff;
         } catch (Exception e) {
             log.info(e.getLocalizedMessage());

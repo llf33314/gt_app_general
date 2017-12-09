@@ -1,8 +1,10 @@
 package com.gt.app.core.service.manage.bus.impl;
 
+import com.gt.api.bean.session.TCommonStaff;
 import com.gt.app.common.enums.AccountEnums;
 import com.gt.app.common.enums.ResponseEnums;
 import com.gt.app.core.bean.manage.res.AccountInfoRes;
+import com.gt.app.core.bean.manage.res.AccountInfoStaffRes;
 import com.gt.app.core.bean.manage.res.IndustryRes;
 import com.gt.app.core.bean.manage.res.LoginAccountRes;
 import com.gt.app.core.exception.manage.BusException;
@@ -13,6 +15,8 @@ import com.gt.axis.bean.wxmp.bus.BusUser;
 import com.gt.axis.bean.wxmp.dict.DictApiReq;
 import com.gt.axis.bean.wxmp.dict.DictApiRes;
 import com.gt.axis.bean.wxmp.erp.ErpApiReq;
+import com.gt.axis.bean.wxmp.erp.ErpBraPosReq;
+import com.gt.axis.bean.wxmp.erp.ErpBraPosRes;
 import com.gt.axis.bean.wxmp.erp.MenusLevelList;
 import com.gt.axis.bean.wxmp.fenbiflow.BusFlowRes;
 import com.gt.axis.server.wxmp.DictServer;
@@ -103,6 +107,24 @@ public class BusManageServiceImpl implements BusManageService {
         }
         accountInfoRes.setFlowNum(flowNum);
         return accountInfoRes;
+    }
+
+    /**
+     * 获取账号信息（员工）
+     *
+     * @param tCommonStaff
+     * @return
+     */
+    @Override
+    public AccountInfoStaffRes getAccountInfo(TCommonStaff tCommonStaff) throws Exception {
+        ErpBraPosReq erpBraPosReq = new ErpBraPosReq();
+        erpBraPosReq.setUserId(tCommonStaff.getId());
+        ErpBraPosRes erpBraPosRes = ErpServer.getBraPos(erpBraPosReq).getData();
+        AccountInfoStaffRes accountInfoStaffRes = new AccountInfoStaffRes();
+        accountInfoStaffRes.setName(tCommonStaff.getName());
+        accountInfoStaffRes.setBranchName(erpBraPosRes.getBranchName());
+        accountInfoStaffRes.setPosName(erpBraPosRes.getPosName());
+        return accountInfoStaffRes;
     }
 
     /**
