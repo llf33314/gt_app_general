@@ -35,8 +35,8 @@ public class CommonUtil {
         try {
             com.gt.api.bean.session.BusUser apiBusUser = SessionUtils.getLoginUser(request);
             BusUserApiReq busUserApiReq = new BusUserApiReq();
-//            busUserApiReq.setUserId(apiBusUser.getId());
-            busUserApiReq.setUserId(36);
+            busUserApiReq.setUserId(apiBusUser.getId());
+//            busUserApiReq.setUserId(36);
             return BusServer.getBusUserApi(busUserApiReq).getData();
         } catch (Exception e) {
             log.info(e.getLocalizedMessage());
@@ -53,13 +53,13 @@ public class CommonUtil {
      */
     public static TCommonStaff getLoginStaff(HttpServletRequest request) {
         try {
-//            TCommonStaff tCommonStaff = SessionUtils.getCommonStaff(request);
-            TCommonStaff tCommonStaff = new TCommonStaff();
-            StaffReq staffReq = new StaffReq();
-            staffReq.setStaffId(210);
-            StaffRes staffRes = StaffServer.getStaffId(staffReq).getData();
-            tCommonStaff.setId(staffRes.getId());
-            tCommonStaff.setName(staffRes.getName());
+            TCommonStaff tCommonStaff = SessionUtils.getCommonStaff(request);
+//            TCommonStaff tCommonStaff = new TCommonStaff();
+//            StaffReq staffReq = new StaffReq();
+//            staffReq.setStaffId(210);
+//            StaffRes staffRes = StaffServer.getStaffId(staffReq).getData();
+//            tCommonStaff.setId(staffRes.getId());
+//            tCommonStaff.setName(staffRes.getName());
             return tCommonStaff;
         } catch (Exception e) {
             log.info(e.getLocalizedMessage());
