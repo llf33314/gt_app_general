@@ -47,7 +47,7 @@
             <div class="index-trade-title">我的行业</div>
             <div class="index-trade-content">
               <!-- 汽车 -->
-              <span class="index-trade-col carModule" :key="item.text" v-for="item in userModule" v-if="item.component === 'car'" @click="jumpPages">
+              <span class="index-trade-col carModule" :key="item.text" v-for="item in userModule" v-if="item.component === 'car'" @click="jumpPages(item.component)">
                 <span class="col-content">
                   <div class="icon-bg">
                     <svg class="icon" aria-hidden="true">
@@ -58,7 +58,7 @@
                 </span>
               </span>
               <!-- 物业 -->
-              <span class="index-trade-col homeModule" v-else-if="item.component === 'home'" @click="jumpPages(item.id)">
+              <span class="index-trade-col homeModule" v-else-if="item.component === 'home'" @click="jumpPages(item.component)">
                 <span class="col-content">
                   <div class="icon-bg">
                     <svg class="icon" aria-hidden="true">
@@ -69,7 +69,7 @@
                 </span>
               </span>
               <!-- 商城 -->
-              <span class="index-trade-col shopModule" v-else-if="item.component === 'shop'" @click="jumpPages">
+              <span class="index-trade-col shopModule" v-else-if="item.component === 'shop'" @click="jumpPages(item.component)">
                 <span class="col-content">
                   <div class="icon-bg">
                     <svg class="icon" aria-hidden="true">
@@ -100,40 +100,20 @@ export default {
     };
   },
   methods: {
-    jumpPages(id) {
-      console.log(id)
-
-      let count = parseInt(this.clickCount);
-      if (isNaN(count)) {
-        count = 0;
+    jumpPages(module) {
+      if (module === "home") {
+        window.location.href = "//wuye.deeptel.com.cn/app/#/";
+      } else {
+        if (window.toast != "") {
+          window.toast.close();
+        }
+        window.toast = this.$toast({
+          message: "车，刚发动 ^^",
+          position: "middle",
+          duration: 5000
+        });
       }
-      count++;
-      this.$store.commit("clickCount", count);
-      let msg = "现在还没地方跳转啊，不过你既然点了，还是要给点反应 0.0";
-      if (parseInt(this.clickCount) >= 5 && parseInt(this.clickCount) < 20) {
-        msg = "不要再点我啦 - -#";
-      } else if (parseInt(this.clickCount) >= 20 && parseInt(this.clickCount) < 22) {
-        msg = "好吧，你点吧，我帮你计数";
-      } else if (parseInt(this.clickCount) > 21 && parseInt(this.clickCount) <= 999) {
-        msg = "你已经点了我 " + this.clickCount + " 下";
-      } else if (parseInt(this.clickCount) > 999 && parseInt(this.clickCount) <= 9999) {
-        msg = "厉害了！我的哥！你点 " + this.clickCount + " 下！";
-      } else if (parseInt(this.clickCount) > 9999) {
-        msg = "逆天了！你突破 " + this.clickCount + " 下！我喝口水，接着数。";
-      }
-      if (window.tmp !== "") {
-        window.tmp.close();
-      }
-      window.tmp = this.$toast({
-        message: msg,
-        position: "middle",
-        duration: 5000
-      });
-      // this.$router.push({
-      //   path: "/indexPage"
-      // });
-    },
-    
+    }
   },
   store: this.$store,
   computed,
@@ -190,7 +170,7 @@ export default {
         height: 66px/@p;
         border-radius: 66px/@p;
         padding: 0 10px 0 2px;
-        background-color: #ff9d90;
+        background-color: @indexIden;
         .icon {
           font-size: 20px;
         }
