@@ -71,10 +71,10 @@ export default {
       } else if (parseInt(this.clickCount) > 9999) {
         msg = "逆天了！你突破 " + this.clickCount + " 下！我喝口水，接着数。";
       }
-      if (window.tmp !== "") {
-        window.tmp.close();
+      if (window.toast !== "") {
+        window.toast.close();
       }
-      window.tmp = this.$toast({
+      window.toast = this.$toast({
         message: msg,
         position: "middle",
         duration: 5000

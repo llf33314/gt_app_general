@@ -7,4 +7,3 @@
     <router-view class="router-view" v-if="!$route.meta.keepAlive" />
   </div>
 </template>
-<script>
