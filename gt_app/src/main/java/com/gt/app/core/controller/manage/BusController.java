@@ -108,8 +108,19 @@ public class BusController extends BaseController {
     @RequestMapping(value = "/listIndustry", method = RequestMethod.POST)
     public ResponseDTO listIndustry(HttpServletRequest request) {
         try {
-            BusUser busUser = CommonUtil.getLoginUser(request);
-            List<IndustryRes> industryResList = busManageService.listIndustry(busUser);
+            Integer loginStyle = CommonUtil.getLoginAccount(request);
+            if (CommonUtil.isEmpty(loginStyle)) {
+                throw new BusException(ResponseEnums.SESSION_ACCOUNT_NULL);
+            }
+            Integer userId = -1;
+            if (AccountEnums.STAFF.getCode().equals(loginStyle)) {
+                TCommonStaff tCommonStaff = CommonUtil.getLoginStaff(request);
+                userId = tCommonStaff.getId();
+            } else if (AccountEnums.BOOS.getCode().equals(loginStyle)) {
+                BusUser busUser = CommonUtil.getLoginUser(request);
+                userId = busUser.getId();
+            }
+            List<IndustryRes> industryResList = busManageService.listIndustry(loginStyle, userId);
             return ResponseDTO.createBySuccess("获取账号对应的行业列表成功", industryResList);
         } catch (BusException e) {
             logger.error(e.getMessage(), e.fillInStackTrace());

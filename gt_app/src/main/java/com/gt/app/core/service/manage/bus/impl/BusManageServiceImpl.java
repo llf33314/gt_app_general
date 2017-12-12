@@ -150,4 +150,32 @@ public class BusManageServiceImpl implements BusManageService {
         }
         return industryResList;
     }
+
+    /**
+     * 获取账号对应的行业列表
+     *
+     * @param loginStyle 员工或者主账号
+     * @param userId     用户id
+     * @return
+     */
+    @Override
+    public List<IndustryRes> listIndustry(Integer loginStyle, Integer userId) throws Exception {
+        if (userId < 0) {
+            throw new BusException(ResponseEnums.DATA_ERROR);
+        }
+        ErpApiReq erpApiReq = new ErpApiReq();
+        erpApiReq.setLoginStyle(loginStyle);
+        erpApiReq.setUserId(userId);
+        List<MenusLevelList> menusLevelLists = ErpServer.getErpListApi(erpApiReq).getData();
+        List<IndustryRes> industryResList = new ArrayList<>();
+        for (MenusLevelList menusLevelList : menusLevelLists) {
+            IndustryRes industryRes = new IndustryRes();
+            industryRes.setCode(menusLevelList.getErpmodel());
+            industryRes.setName(menusLevelList.getErpname());
+            industryRes.setStatus(0);
+            industryRes.setUrl("");
+            industryResList.add(industryRes);
+        }
+        return industryResList;
+    }
 }

@@ -39,8 +39,19 @@ public interface BusManageService {
      *
      * @param busUser
      * @return
+     * @exception Exception
      */
+    @Deprecated
     List<IndustryRes> listIndustry(BusUser busUser) throws Exception;
+
+    /**
+     * 获取账号对应的行业列表
+     *
+     * @param loginStyle 员工或者主账号
+     * @param userId     用户id
+     * @return
+     */
+    List<IndustryRes> listIndustry(Integer loginStyle, Integer userId) throws Exception;
 
     /**
      * 获取登录账号信息
@@ -49,5 +60,4 @@ public interface BusManageService {
      * @return
      */
     LoginAccountRes getLoginAccount(HttpServletRequest request);
-
 }
