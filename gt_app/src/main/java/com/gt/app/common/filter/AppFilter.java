@@ -7,6 +7,7 @@ import com.gt.app.core.util.CommonUtil;
 import org.apache.log4j.Logger;
 
 import javax.servlet.*;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -39,6 +40,13 @@ public class AppFilter implements Filter {
         servletResponse.setContentType("application/json; charset=utf-8");
 
         logger.debug("app filter");
+
+        Cookie[] cookies = httpServletRequest.getCookies();
+        if (null != cookies) {
+            for (Cookie cookie : cookies) {
+                logger.debug(cookie.getName() + " --> " + cookie);
+            }
+        }
 
         Integer loginStyle = CommonUtil.getLoginAccount(httpServletRequest);
         if (loginStyle == null) {
