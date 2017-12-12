@@ -102,7 +102,7 @@ export default {
   methods: {
     jumpPages(module) {
       if (module === "home") {
-        window.location.href = "//wuye.deeptel.com.cn/app/#/";
+        window.location.href = window.homeUrl;
       } else {
         if (window.toast != "") {
           window.toast.close();
@@ -128,7 +128,6 @@ export default {
     index.getAccountInfo({
       fn: res => {
         vm.userInfo = res[0].data;
-
         for (let i = 0; i < res[1].data.length; i++) {
           if (typeof vm.industry[res[1].data[i].code] !== "undefined") {
             vm.userModule.push({

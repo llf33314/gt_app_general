@@ -34,8 +34,8 @@ axios.interceptors.request.use(config => {
 axios.interceptors.response.use(response => {
     if (response.data.code === 100) {
         return response.data;
-    } else if (response.data.message) {
-        checkCode(response.data.message)
+    } else if (response.data.msg) {
+        checkCode(response.data.msg)
     } else {
         Indicator.close()
         if (window.toast != "") {
@@ -149,10 +149,15 @@ export default {
     },
     all(obj) {
         return axios.all(obj.url).then(res => {
+            Indicator.close()
+            for (let i = 0; i < res.length; i++) {
+                if (res[i] == "") {
+                    return;                    
+                }
+            } 
             if (typeof obj.fn != 'undefined') {
                 obj.fn(res)
             }
-            Indicator.close()
         }).catch(err => {
             checkCode(err.message)
         })
