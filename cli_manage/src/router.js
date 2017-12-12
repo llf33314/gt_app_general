@@ -6,6 +6,8 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import Index from './pages/Index/Index';
+import Classify from './pages/Index/Classify';
+
 Vue.use(Router);
 export function createRouter() {
     const router = new Router({
@@ -20,16 +22,13 @@ export function createRouter() {
         },
         routes: [{
             path: '/',
-            meta: {
-                keepAlive: true
-            },
             component: Index,
         }, {
             path: '/index',
-            meta: {
-                keepAlive: true
-            },
             component: Index,
+        }, {
+            path: '/classify',
+            component: Classify,
         }]
     });
 

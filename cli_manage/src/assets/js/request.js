@@ -34,6 +34,8 @@ axios.interceptors.request.use(config => {
 axios.interceptors.response.use(response => {
     if (response.data.code === 100) {
         return response.data;
+    } else if (response.data.code === 201) {
+        window.location.href = '/manage/#/classify'
     } else if (response.data.msg) {
         checkCode(response.data.msg)
     } else {
@@ -75,19 +77,21 @@ axios.interceptors.response.use(response => {
                 error.message = '服务未实现'
                 break
             case 502:
-                error.message = '网关错误'
+                error.message = '无法连接服务器'
                 break
             case 503:
                 error.message = '服务不可用'
                 break
             case 504:
-                error.message = '网关超时'
+                error.message = '连接服务器超时'
                 break
             case 505:
                 error.message = 'HTTP版本不受支持'
                 break
             default:
         }
+    } else {
+        error.message = '无法连接服务器'
     }
     //对返回的错误处理
     return Promise.reject(error);
@@ -152,9 +156,9 @@ export default {
             Indicator.close()
             for (let i = 0; i < res.length; i++) {
                 if (res[i] == "") {
-                    return;                    
+                    return;
                 }
-            } 
+            }
             if (typeof obj.fn != 'undefined') {
                 obj.fn(res)
             }
