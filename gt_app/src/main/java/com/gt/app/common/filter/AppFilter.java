@@ -44,7 +44,7 @@ public class AppFilter implements Filter {
         Cookie[] cookies = httpServletRequest.getCookies();
         if (null != cookies) {
             for (Cookie cookie : cookies) {
-                logger.debug(cookie.getName() + " --> " + cookie);
+                logger.debug(cookie.getName() + " --> " + cookie.getValue() + " --> " + cookie.getDomain() + " --> " + cookie.getComment());
             }
         }
 
