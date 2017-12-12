@@ -41,13 +41,6 @@ public class AppFilter implements Filter {
 
         logger.debug("app filter");
 
-        Cookie[] cookies = httpServletRequest.getCookies();
-        if (null != cookies) {
-            for (Cookie cookie : cookies) {
-                logger.debug(cookie.getName() + " --> " + cookie);
-            }
-        }
-
         Integer loginStyle = CommonUtil.getLoginAccount(httpServletRequest);
         if (loginStyle == null) {
             servletResponse.getWriter().write(JSONObject.toJSONString(ResponseDTO.createByErrorCodeMessage(ResponseEnums.LOGIN.getCode(), ResponseEnums.LOGIN.getDesc())));
