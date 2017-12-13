@@ -29,11 +29,7 @@ const store = new Vuex.Store({
         token: (state, val) => {
             state.token = val;
             window.localStorage.setItem('token', val);
-        },
-        clickCount: (state, val) => {
-            state.clickCount = val;
-            window.localStorage.setItem('clickCount', val);
-        },
+        }
     }
 })
 
