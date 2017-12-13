@@ -1,88 +1,90 @@
 <template>
-    <div class="index">
-        <!--用户信息-->
-        <div class="index-user">
-          <div class="index-user-row" v-if="userInfo.name">
-            <span class="flex-1 text-md">{{userInfo.name}}</span>
-            <span class="flex-1 text-right text-sx">剩余 <b class="text-md">{{userInfo.expireDay}}</b> 天</span>            
-          </div>
-          <div class="index-user-row" v-if="userInfo.name">
-            <span class="flex-1">
-              <span class="index-user-iden">
-                <div class="flex-middle">
+  <div class="index">
+    <pull-to :top-load-method="refresh" :is-bottom-bounce="false">
+      <!--用户信息-->
+      <div class="index-user">
+        <div class="index-user-row" v-if="userInfo.name">
+          <span class="flex-1 text-md">{{userInfo.name}}</span>
+          <span class="flex-1 text-right text-sx">剩余 <b class="text-md">{{userInfo.expireDay}}</b> 天</span>            
+        </div>
+        <div class="index-user-row" v-if="userInfo.name">
+          <span class="flex-1">
+            <span class="index-user-iden">
+              <div class="flex-middle">
+                <svg class="icon" aria-hidden="true">
+                  <use v-if="userInfo.versionCode == 4" xlink:href="#icon-zhizunban"></use>
+                  <use v-else xlink:href="#icon-zhizunban"></use>
+                </svg>
+                <span class="text text-sx">{{userInfo.version}}</span>
+              </div>
+            </span>
+          </span>
+          <span class="flex-1 text-right text-sx">{{new Date(userInfo.expireDate).Format("yyyy-MM-dd")}}</span>            
+        </div>
+      </div>
+
+      <div class="index-content">
+        <!--账户信息-->
+        <div class="index-total" v-if="userInfo.name">
+          <span class="flex-1">
+            <div class="index-total-number">{{userInfo.fanbiNum}}</div>
+            <div class="index-total-text">粉币</div>
+          </span>
+          <span class="flex-1">
+            <div class="index-total-number">{{userInfo.smsNum}}</div>
+            <div class="index-total-text">剩余短信</div>
+          </span>
+          <span class="flex-1">
+            <div class="index-total-number">{{userInfo.flowNum}}</div>
+            <div class="index-total-text">流量包</div>
+          </span>
+        </div>
+
+        <!--行业模块-->
+        <div :is="item.component" :text="item.text" :key="item.code" v-for="item in userModule"></div>
+
+        <!--我的行业-->
+        <div class="index-trade" v-if="userInfo.name">
+          <div class="index-trade-title">我的行业</div>
+          <div class="index-trade-content">
+            <!-- 汽车 -->
+            <span class="index-trade-col carModule" :key="item.text" v-for="item in userModule" v-if="item.code == 2">
+              <span class="col-content">
+                <div class="icon-bg">
                   <svg class="icon" aria-hidden="true">
-                    <use v-if="userInfo.versionCode == 4" xlink:href="#icon-zhizunban"></use>
-                    <use v-else xlink:href="#icon-zhizunban"></use>
+                    <use xlink:href="#icon-car"></use>
                   </svg>
-                  <span class="text text-sx">{{userInfo.version}}</span>
                 </div>
+                <div class="text">汽车</div>
               </span>
             </span>
-            <span class="flex-1 text-right text-sx">{{new Date(userInfo.expireDate).Format("yyyy-MM-dd")}}</span>            
+            <!-- 物业 -->
+            <span class="index-trade-col homeModule" v-else-if="item.code == 5" @click="jumpPages(item.url)">
+              <span class="col-content">
+                <div class="icon-bg">
+                  <svg class="icon" aria-hidden="true">
+                    <use xlink:href="#icon-wuye"></use>
+                  </svg>
+                </div>
+                <div class="text">物业</div>
+              </span>
+            </span>
+            <!-- 商城 -->
+            <span class="index-trade-col shopModule" v-else-if="item.code == 11" @click="jumpPages(item.url)">
+              <span class="col-content">
+                <div class="icon-bg">
+                  <svg class="icon" aria-hidden="true">
+                    <use xlink:href="#icon-shop"></use>
+                  </svg>
+                </div>
+                <div class="text">商城</div>
+              </span>
+            </span>
           </div>
         </div>
-
-        <div class="index-content">
-          <!--账户信息-->
-          <div class="index-total" v-if="userInfo.name">
-            <span class="flex-1">
-              <div class="index-total-number">{{userInfo.fanbiNum}}</div>
-              <div class="index-total-text">粉币</div>
-            </span>
-            <span class="flex-1">
-              <div class="index-total-number">{{userInfo.smsNum}}</div>
-              <div class="index-total-text">剩余短信</div>
-            </span>
-            <span class="flex-1">
-              <div class="index-total-number">{{userInfo.flowNum}}</div>
-              <div class="index-total-text">流量包</div>
-            </span>
-          </div>
-
-          <!--行业模块-->
-          <div :is="item.component" :text="item.text" :key="item.code" v-for="item in userModule"></div>
-
-          <!--我的行业-->
-          <div class="index-trade" v-if="userInfo.name">
-            <div class="index-trade-title">我的行业</div>
-            <div class="index-trade-content">
-              <!-- 汽车 -->
-              <span class="index-trade-col carModule" :key="item.text" v-for="item in userModule" v-if="item.component === 'car'" @click="jumpPages(item.component)">
-                <span class="col-content">
-                  <div class="icon-bg">
-                    <svg class="icon" aria-hidden="true">
-                      <use xlink:href="#icon-car"></use>
-                    </svg>
-                  </div>
-                  <div class="text">汽车</div>
-                </span>
-              </span>
-              <!-- 物业 -->
-              <span class="index-trade-col homeModule" v-else-if="item.component === 'home'" @click="jumpPages(item.component)">
-                <span class="col-content">
-                  <div class="icon-bg">
-                    <svg class="icon" aria-hidden="true">
-                      <use xlink:href="#icon-wuye"></use>
-                    </svg>
-                  </div>
-                  <div class="text">物业</div>
-                </span>
-              </span>
-              <!-- 商城 -->
-              <span class="index-trade-col shopModule" v-else-if="item.component === 'shop'" @click="jumpPages(item.component)">
-                <span class="col-content">
-                  <div class="icon-bg">
-                    <svg class="icon" aria-hidden="true">
-                      <use xlink:href="#icon-shop"></use>
-                    </svg>
-                  </div>
-                  <div class="text">商城</div>
-                </span>
-              </span>
-            </div>
-          </div>
-        </div>
-    </div>
+      </div>
+    </pull-to>
+  </div>
 </template>
 <script>
 import { index } from "./../../assets/js/api.js";
@@ -100,10 +102,15 @@ export default {
     };
   },
   methods: {
-    jumpPages(module) {
-      if (module === "home") {
-        window.location.href = window.homeUrl;
-      }
+    jumpPages(url) {
+      window.location.href = url;
+    },
+    //下拉刷新
+    refresh(loaded) {
+      this.$nextTick(() => {
+        this.$router.go(0);
+        loaded("done");
+      });
     }
   },
   store: this.$store,
@@ -119,11 +126,18 @@ export default {
     index.getAccountInfo({
       fn: res => {
         vm.userInfo = res[0].data;
+
         for (let i = 0; i < res[1].data.length; i++) {
-          if (typeof vm.industry[res[1].data[i].code] !== "undefined") {
+          if (
+            typeof vm.industry[res[1].data[i].code] !== "undefined" &&
+            res[1].data[i].status == 1
+          ) {
             vm.userModule.push({
               component: vm.industry[res[1].data[i].code],
-              text: res[1].data[i].name
+              code: res[1].data[i].code,
+              status: res[1].data[i].status,
+              name: res[1].data[i].name,
+              url: res[1].data[i].url
             });
           }
         }
@@ -178,10 +192,8 @@ export default {
     }
   }
   .index-content {
-    position: absolute;
-    top: 208px/@p;
-    left: 0;
-    right: 0;
+    margin-top: 208px/@p;
+
     /* 账户信息 */
     .index-total {
       width: 100%;
