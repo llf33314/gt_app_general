@@ -224,7 +224,7 @@ export default {
         width: 100%;
         padding: 11px 20px;
         font-size: 45px/@p;
-        border-bottom: 1px solid @brGray;
+        border-bottom: 1px solid @brColor;
       }
       .index-trade-content {
         width: 100%;

@@ -14,9 +14,11 @@ import "./assets/css/theme.less";
 import 'lib-flexible';
 import './assets/js/util.js';
 import store from './assets/js/store.js';
+import PullTo from 'vue-pull-to'
 
 Vue.use(MintUI)
-Vue.config.productionTip = true;
+Vue.config.productionTip = true
+Vue.component('pull-to', PullTo)
 
 /* eslint-disable no-new */
 export function createApp() {

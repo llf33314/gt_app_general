@@ -45,6 +45,31 @@ input:-webkit-autofill {
     outline: none;
 }
 
+//去除Chrome 焦点边框
+*:focus {
+    outline: none;
+}
+
+::-webkit-input-placeholder {
+    /* WebKit browsers */
+    color: #d2d2d2;
+}
+
+:-moz-placeholder {
+    /* Mozilla Firefox 4 to 18 */
+    color: #d2d2d2;
+}
+
+::-moz-placeholder {
+    /* Mozilla Firefox 19+ */
+    color: #d2d2d2;
+}
+
+:-ms-input-placeholder {
+    /* Internet Explorer 10+ */
+    color: #d2d2d2;
+}
+
 
 /* 边距不算入宽高 */
 
@@ -175,7 +200,7 @@ input:-webkit-autofill {
 /* 边框合集 */
 
 .border {
-    border: 1px solid @brGray !important;
+    border: 1px solid @brColor !important;
 }
 
 .border-0 {
@@ -183,37 +208,37 @@ input:-webkit-autofill {
 }
 
 .border-top {
-    border-top: 1px solid @brGray !important;
+    border-top: 1px solid @brColor !important;
 }
 
 .border-bottom {
-    border-bottom: 1px solid @brGray !important;
+    border-bottom: 1px solid @brColor !important;
 }
 
 .border-left {
-    border-left: 1px solid @brGray !important;
+    border-left: 1px solid @brColor !important;
 }
 
 .border-right {
-    border-right: 1px solid @brGray !important;
+    border-right: 1px solid @brColor !important;
 }
 
 .border-horizontal {
-    border-left: 1px solid @brGray !important;
-    border-right: 1px solid @brGray !important;
+    border-left: 1px solid @brColor !important;
+    border-right: 1px solid @brColor !important;
 }
 
 .border-vertical {
-    border-top: 1px solid @brGray !important;
-    border-bottom: 1px solid @brGray !important;
+    border-top: 1px solid @brColor !important;
+    border-bottom: 1px solid @brColor !important;
 }
 
 .border-top-big {
-    border-top: 10px solid @brGray !important;
+    border-top: 10px solid @brColor !important;
 }
 
 .border-bottom-big {
-    border-bottom: 10px solid @brGray !important;
+    border-bottom: 10px solid @brColor !important;
 }
 
 
@@ -959,7 +984,7 @@ input:-webkit-autofill {
         height: 121px/@p;
         font-size: 45px/@p;
         font-weight: 545;
-        border-bottom: 1px solid @brGray;
+        border-bottom: 1px solid @brColor;
         display: flex;
         align-items: center;
         justify-content: center;
