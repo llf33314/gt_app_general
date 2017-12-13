@@ -50,7 +50,7 @@ module.exports = {
          *
          * @type {string}
          */
-        stripPrefix: 'dist/',
+        stripPrefix: 'manage/',
 
         /**
          * 当请求路径不在缓存里的返回，对于单页应用来说，入口点是一样的
