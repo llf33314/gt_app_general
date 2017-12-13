@@ -37,16 +37,6 @@ public interface BusManageService {
     /**
      * 获取账号对应的行业列表
      *
-     * @param busUser
-     * @return
-     * @exception Exception
-     */
-    @Deprecated
-    List<IndustryRes> listIndustry(BusUser busUser) throws Exception;
-
-    /**
-     * 获取账号对应的行业列表
-     *
      * @param loginStyle 员工或者主账号
      * @param userId     用户id
      * @return
