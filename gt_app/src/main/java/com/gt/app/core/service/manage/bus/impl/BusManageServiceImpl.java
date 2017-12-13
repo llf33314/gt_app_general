@@ -7,8 +7,10 @@ import com.gt.app.core.bean.manage.res.AccountInfoRes;
 import com.gt.app.core.bean.manage.res.AccountInfoStaffRes;
 import com.gt.app.core.bean.manage.res.IndustryRes;
 import com.gt.app.core.bean.manage.res.LoginAccountRes;
+import com.gt.app.core.entity.manage.industry.IndustryRegister;
 import com.gt.app.core.exception.manage.BusException;
 import com.gt.app.core.service.manage.bus.BusManageService;
+import com.gt.app.core.service.manage.industry.IndustryRegisterService;
 import com.gt.app.core.util.CommonUtil;
 import com.gt.app.core.util.DateTimeKit;
 import com.gt.axis.bean.wxmp.bus.BusUser;
@@ -23,6 +25,7 @@ import com.gt.axis.server.wxmp.DictServer;
 import com.gt.axis.server.wxmp.ErpServer;
 import com.gt.axis.server.wxmp.FenbiflowServer;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -41,6 +44,9 @@ import java.util.List;
 public class BusManageServiceImpl implements BusManageService {
 
     private static final Logger logger = Logger.getLogger(BusManageServiceImpl.class);
+
+    @Autowired
+    IndustryRegisterService industryRegisterService;
 
     @Value("${gt.app.homeUrl}")
     private String homeUrl;
@@ -130,30 +136,6 @@ public class BusManageServiceImpl implements BusManageService {
     /**
      * 获取账号对应的行业列表
      *
-     * @param busUser
-     * @return
-     */
-    @Override
-    public List<IndustryRes> listIndustry(BusUser busUser) throws Exception {
-        ErpApiReq erpApiReq = new ErpApiReq();
-        erpApiReq.setLoginStyle(1);
-        erpApiReq.setUserId(busUser.getId());
-        List<MenusLevelList> menusLevelLists = ErpServer.getErpListApi(erpApiReq).getData();
-        List<IndustryRes> industryResList = new ArrayList<>();
-        for (MenusLevelList menusLevelList : menusLevelLists) {
-            IndustryRes industryRes = new IndustryRes();
-            industryRes.setCode(menusLevelList.getErpmodel());
-            industryRes.setName(menusLevelList.getErpname());
-            industryRes.setStatus(0);
-            industryRes.setUrl("");
-            industryResList.add(industryRes);
-        }
-        return industryResList;
-    }
-
-    /**
-     * 获取账号对应的行业列表
-     *
      * @param loginStyle 员工或者主账号
      * @param userId     用户id
      * @return
@@ -168,12 +150,20 @@ public class BusManageServiceImpl implements BusManageService {
         erpApiReq.setUserId(userId);
         List<MenusLevelList> menusLevelLists = ErpServer.getErpListApi(erpApiReq).getData();
         List<IndustryRes> industryResList = new ArrayList<>();
+        List<IndustryRegister> industryRegisterList = industryRegisterService.selecAll();
         for (MenusLevelList menusLevelList : menusLevelLists) {
             IndustryRes industryRes = new IndustryRes();
             industryRes.setCode(menusLevelList.getErpmodel());
             industryRes.setName(menusLevelList.getErpname());
             industryRes.setStatus(0);
-            industryRes.setUrl("");
+            industryRes.setUrl("#");
+            for (IndustryRegister industryRegister : industryRegisterList) {
+                if (industryRegister.getIndustryCode().equals(industryRes.getCode())) {
+                    industryRes.setName(industryRegister.getIndustryName());
+                    industryRes.setStatus(industryRegister.getIndustryStatus());
+                    industryRes.setUrl(industryRegister.getIndustryUrl());
+                }
+            }
             industryResList.add(industryRes);
         }
         return industryResList;
