@@ -34,8 +34,6 @@ axios.interceptors.request.use(config => {
 axios.interceptors.response.use(response => {
     if (response.data.code === 100) {
         return response.data;
-    } else if (response.data.code === 201) {
-        window.location.href = '/manage/#/classify'
     } else if (response.data.msg) {
         checkCode(response.data.msg)
     } else {

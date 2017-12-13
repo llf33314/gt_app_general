@@ -21,12 +21,6 @@ const computed = mapState({
             store.commit("token", window.localStorage.getItem("token"));
         }
         return state.token;
-    },
-    clickCount: state => {
-        if (state.clickCount === 0 && window.localStorage.getItem("clickCount")) {
-            store.commit("clickCount", window.localStorage.getItem("clickCount"));
-        }
-        return state.clickCount;
     }
 })
 export default computed

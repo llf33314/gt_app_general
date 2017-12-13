@@ -54,37 +54,7 @@ export default {
   store: this.$store,
   computed: this.$computed,
   methods: {
-    jumpPages() {
-      let count = parseInt(this.clickCount);
-      if (isNaN(count)) {
-        count = 0;
-      }
-      count++;
-      this.$store.commit("clickCount", count);
-      let msg = "现在还没地方跳转啊，不过你既然点了，还是要给点反应 0.0";
-      if (parseInt(this.clickCount) >= 5 && parseInt(this.clickCount) < 20) {
-        msg = "不要再点我啦 - -#";
-      } else if (parseInt(this.clickCount) >= 20 && parseInt(this.clickCount) < 22) {
-        msg = "好吧，你点吧，我帮你计数";
-      } else if (parseInt(this.clickCount) > 21 && parseInt(this.clickCount) <= 999) {
-        msg = "你已经点了我 " + this.clickCount + " 下";
-      } else if (parseInt(this.clickCount) > 999 && parseInt(this.clickCount) <= 9999) {
-        msg = "厉害了！我的哥！你点 " + this.clickCount + " 下！";
-      } else if (parseInt(this.clickCount) > 9999) {
-        msg = "逆天了！你突破 " + this.clickCount + " 下！我喝口水，接着数。";
-      }
-      if (window.toast !== "") {
-        window.toast.close();
-      }
-      window.toast = this.$toast({
-        message: msg,
-        position: "middle",
-        duration: 5000
-      });
-      // this.$router.push({
-      //   path: "/indexPage"
-      // });
-    }
+    jumpPages() {}
   },
   mounted() {
     const vm = this;

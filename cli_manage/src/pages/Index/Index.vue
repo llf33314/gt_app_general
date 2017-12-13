@@ -103,15 +103,6 @@ export default {
     jumpPages(module) {
       if (module === "home") {
         window.location.href = window.homeUrl;
-      } else {
-        if (window.toast != "") {
-          window.toast.close();
-        }
-        window.toast = this.$toast({
-          message: "车，刚发动 ^^",
-          position: "middle",
-          duration: 5000
-        });
       }
     }
   },
