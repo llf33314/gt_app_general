@@ -28,7 +28,7 @@ body {
   /* 用户信息 */
   .index-user {
     width: 100%;
-    height: 208px/@p;
+    height: 150px;
     color: @white;
     padding: 0 50px/@p;
     background: linear-gradient(
