@@ -5,8 +5,9 @@ import io.swagger.annotations.ApiModelProperty;
 
 /**
  * 物业行业
+ *
  * @author psr
- * Created by psr on 2017/12/4 0004.
+ *         Created by psr on 2017/12/4 0004.
  */
 @ApiModel(value = "物业行业（揽胜家园）信息")
 public class PropertyInfoRes {
@@ -19,6 +20,9 @@ public class PropertyInfoRes {
 
     @ApiModelProperty(value = "本月新入住")
     private Integer monthNewCheck; // 本月新入住
+
+    @ApiModelProperty(value = "详情链接")
+    private String infoUrl; // 详情链接
 
     public Double getMonthReceivable() {
         return monthReceivable;
@@ -42,5 +46,13 @@ public class PropertyInfoRes {
 
     public void setMonthNewCheck(Integer monthNewCheck) {
         this.monthNewCheck = monthNewCheck;
+    }
+
+    public String getInfoUrl() {
+        return infoUrl;
+    }
+
+    public void setInfoUrl(String infoUrl) {
+        this.infoUrl = infoUrl;
     }
 }
