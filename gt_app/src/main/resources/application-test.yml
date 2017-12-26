@@ -14,7 +14,7 @@ gt:
   app:
     mainUrl: https://app.deeptel.com.cn
     homeUrl: ${gt.app.mainUrl}/manage/#/index
-    propertyUrl: https://home.deeptel.com.cn
+    propertyUrl: https://wuye.deeptel.com.cn
 
 ################ redis and mysql
 spring:
