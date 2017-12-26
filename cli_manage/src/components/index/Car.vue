@@ -8,11 +8,11 @@
       </span>
       <span>车小算</span>
     </div>
-    <div class="index-info-content" @click="jumpPages">
+    <div class="index-info-content">
       <mt-spinner color="#ff4257" class="loading" v-if="loading"></mt-spinner>
 
       <!--数据展示-->
-      <div v-if="!loading && !errInfo" @click="jumpPages">
+      <div v-if="!loading && !errInfo" @click="jumpInfo">
         <div class="content-row" >
           <div class="content-col">
             <div class="col-number">{{data.todayAppointment}}</div>
@@ -64,7 +64,7 @@ export default {
     };
   },
   methods: {
-    jumpPages() {
+    jumpInfo() {
       if (this.data.infoUrl) {
         window.location.href = this.data.infoUrl;
       }
