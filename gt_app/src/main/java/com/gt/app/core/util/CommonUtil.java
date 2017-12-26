@@ -35,7 +35,6 @@ public class CommonUtil {
             }
             BusUserApiReq busUserApiReq = new BusUserApiReq();
             busUserApiReq.setUserId(apiBusUser.getId());
-//            busUserApiReq.setUserId(36);
             return BusServer.getBusUserApi(busUserApiReq).getData();
         } catch (Exception e) {
             log.info(e.getLocalizedMessage());
@@ -56,12 +55,6 @@ public class CommonUtil {
             if (CommonUtil.isEmpty(tCommonStaff)) {
                 log.debug("session staff is null");
             }
-//            TCommonStaff tCommonStaff = new TCommonStaff();
-//            StaffReq staffReq = new StaffReq();
-//            staffReq.setStaffId(210);
-//            StaffRes staffRes = StaffServer.getStaffId(staffReq).getData();
-//            tCommonStaff.setId(staffRes.getId());
-//            tCommonStaff.setName(staffRes.getName());
             return tCommonStaff;
         } catch (Exception e) {
             log.info(e.getLocalizedMessage());
@@ -83,7 +76,6 @@ public class CommonUtil {
                 log.debug("session loginStyle is null");
             }
             return loginStyle;
-//            return 1;
         } catch (Exception e) {
             log.info(e.getLocalizedMessage());
             e.printStackTrace();
