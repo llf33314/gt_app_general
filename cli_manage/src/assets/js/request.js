@@ -8,6 +8,8 @@ import Qs from 'qs'
 import { Toast } from 'mint-ui';
 import { Indicator } from 'mint-ui';
 
+let msgShow = true;
+
 axios.defaults.baseURL = window.request;
 //响应时间
 axios.defaults.timeout = 10000;
@@ -15,6 +17,7 @@ axios.defaults.timeout = 10000;
 axios.defaults.withCredentials = false;
 //设置默认请求头
 axios.defaults.headers = {
+    // 'X-Requested-With': 'XMLHttpRequest',
     "Content-Type": "application/json; charset=UTF-8"
 };
 
@@ -23,6 +26,8 @@ axios.interceptors.request.use(config => {
     //是否加全屏loding
     if (config.data !== false) {
         Indicator.open();
+    } else {
+        msgShow = false;
     }
     return config
 }, error => {
@@ -34,19 +39,12 @@ axios.interceptors.request.use(config => {
 axios.interceptors.response.use(response => {
     if (response.data.code === 100) {
         return response.data;
+    } else if (msgShow) {
+        return Promise.reject(response);
     } else if (response.data.msg) {
         checkCode(response.data.msg)
     } else {
-        Indicator.close()
-        if (window.toast != "") {
-            window.toast.close()
-        }
-        // 弹出错误信息
-        window.toast = Toast({
-            message: '操作失败，请重试',
-            position: 'middle',
-            duration: 5000
-        });
+        checkCode('操作失败，请重试')
     }
     return '';
 }, error => {
@@ -116,7 +114,12 @@ export default {
             }
             Indicator.close()
         }).catch(err => {
-            checkCode(err.message)
+            if (msgShow) {
+                checkCode(err.message)
+            }
+            if (typeof obj.err != 'undefined') {
+                obj.err(err.message)
+            }
         })
     },
     get(obj) {
@@ -126,7 +129,12 @@ export default {
             }
             Indicator.close()
         }).catch(err => {
-            checkCode(err.message)
+            if (msgShow) {
+                checkCode(err.message)
+            }
+            if (typeof obj.err != 'undefined') {
+                obj.err(err.message)
+            }
         })
     },
     put(obj) {
@@ -136,7 +144,12 @@ export default {
             }
             Indicator.close()
         }).catch(err => {
-            checkCode(err.message)
+            if (msgShow) {
+                checkCode(err.message)
+            }
+            if (typeof obj.err != 'undefined') {
+                obj.err(err.message)
+            }
         })
     },
     delete(obj) {
@@ -146,7 +159,12 @@ export default {
             }
             Indicator.close()
         }).catch(err => {
-            checkCode(err.message)
+            if (msgShow) {
+                checkCode(err.message)
+            }
+            if (typeof obj.err != 'undefined') {
+                obj.err(err.message)
+            }
         })
     },
     all(obj) {
@@ -161,7 +179,12 @@ export default {
                 obj.fn(res)
             }
         }).catch(err => {
-            checkCode(err.message)
+            if (msgShow) {
+                checkCode(err.message)
+            }
+            if (typeof obj.err != 'undefined') {
+                obj.err(err.message)
+            }
         })
     }
 }
