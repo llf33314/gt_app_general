@@ -5,6 +5,7 @@ import com.gt.app.core.service.manage.industry.IndustryInfoFactory;
 import com.gt.app.core.service.manage.industry.IndustryInfoService;
 import com.gt.app.core.service.manage.industry.impl.CarInfoServiceImpl;
 import com.gt.app.core.service.manage.industry.impl.PropertyInfoServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -13,11 +14,18 @@ import java.util.Map;
 
 /**
  * 工厂模式配置文件
+ *
  * @author psr
- * Created by psr on 2017/12/4 0004.
+ *         Created by psr on 2017/12/4 0004.
  */
 @Configuration
 public class FactoryConfig {
+
+    @Autowired
+    CarInfoServiceImpl carInfoServiceImpl; // 车小算
+
+    @Autowired
+    PropertyInfoServiceImpl propertyInfoServiceImpl; // 揽胜家园
 
     /**
      * 行业信息工厂
@@ -34,10 +42,10 @@ public class FactoryConfig {
      * 11：小盼
      */
     @Bean
-    public Map<String, IndustryInfoService> industryInfoFactoryBean(){
+    public Map<String, IndustryInfoService> industryInfoFactoryBean() {
         Map<String, IndustryInfoService> serviceMap = new HashMap<>();
-        serviceMap.put(IndustryEnums.CAR.getCode(), new CarInfoServiceImpl());
-        serviceMap.put(IndustryEnums.PROPERTY.getCode(), new PropertyInfoServiceImpl());
+        serviceMap.put(IndustryEnums.CAR.getCode(), carInfoServiceImpl);
+        serviceMap.put(IndustryEnums.PROPERTY.getCode(), propertyInfoServiceImpl);
         IndustryInfoFactory.setServiceMap(serviceMap);
         return serviceMap;
     }

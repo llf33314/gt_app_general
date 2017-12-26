@@ -1,28 +1,28 @@
 <template>
   <div class="index">
-    <pull-to :top-load-method="refresh" :is-bottom-bounce="false">
-      <!--用户信息-->
-      <div class="index-user">
-        <div class="index-user-row" v-if="userInfo.name">
-          <span class="flex-1 text-md">{{userInfo.name}}</span>
-          <span class="flex-1 text-right text-sx">剩余 <b class="text-md">{{userInfo.expireDay}}</b> 天</span>            
-        </div>
-        <div class="index-user-row" v-if="userInfo.name">
-          <span class="flex-1">
-            <span class="index-user-iden">
-              <div class="flex-middle">
-                <svg class="icon" aria-hidden="true">
-                  <use v-if="userInfo.versionCode == 4" xlink:href="#icon-zhizunban"></use>
-                  <use v-else xlink:href="#icon-zhizunban"></use>
-                </svg>
-                <span class="text text-sx">{{userInfo.version}}</span>
-              </div>
-            </span>
-          </span>
-          <span class="flex-1 text-right text-sx">{{new Date(userInfo.expireDate).Format("yyyy-MM-dd")}}</span>            
-        </div>
+    <!--用户信息-->
+    <div class="index-user">
+      <div class="index-user-row" v-if="userInfo.name">
+        <span class="flex-1 text-md">{{userInfo.name}}</span>
+        <span class="flex-1 text-right text-sx">剩余 <b class="text-md">{{userInfo.expireDay}}</b> 天</span>            
       </div>
-
+      <div class="index-user-row" v-if="userInfo.name">
+        <span class="flex-1">
+          <span class="index-user-iden">
+            <div class="flex-middle">
+              <svg class="icon" aria-hidden="true">
+                <use v-if="userInfo.versionCode == 4" xlink:href="#icon-zhizunban"></use>
+                <use v-else xlink:href="#icon-zhizunban"></use>
+              </svg>
+              <span class="text text-sx">{{userInfo.version}}</span>
+            </div>
+          </span>
+        </span>
+        <span class="flex-1 text-right text-sx">{{new Date(userInfo.expireDate).Format("yyyy-MM-dd")}}</span>            
+      </div>
+    </div>
+  
+    <scroller :on-refresh="refresh">
       <div class="index-content">
         <!--账户信息-->
         <div class="index-total" v-if="userInfo.name">
@@ -83,7 +83,8 @@
           </div>
         </div>
       </div>
-    </pull-to>
+
+    </scroller>
   </div>
 </template>
 <script>
