@@ -83,7 +83,6 @@
           </div>
         </div>
       </div>
-
     </scroller>
   </div>
 </template>
@@ -103,15 +102,13 @@ export default {
     };
   },
   methods: {
+    // 跳转地址
     jumpPages(url) {
       window.location.href = url;
     },
     //下拉刷新
     refresh(loaded) {
-      this.$nextTick(() => {
-        this.$router.go(0);
-        loaded("done");
-      });
+      this.$router.go(0);
     }
   },
   store: this.$store,
@@ -129,10 +126,8 @@ export default {
         vm.userInfo = res[0].data;
 
         for (let i = 0; i < res[1].data.length; i++) {
-          if (
-            typeof vm.industry[res[1].data[i].code] !== "undefined" &&
-            res[1].data[i].status == 1
-          ) {
+          if (typeof vm.industry[res[1].data[i].code] !== "undefined" &&
+            res[1].data[i].status == 1) {
             vm.userModule.push({
               component: vm.industry[res[1].data[i].code],
               code: res[1].data[i].code,

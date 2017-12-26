@@ -20,7 +20,8 @@ const index = {
         return $api.post({
             url: '/app/manage/bus/getIndustryInfo/' + obj.params,
             params: false,
-            fn: obj.fn
+            fn: obj.fn,
+            err: obj.err
         })
     },
 }
