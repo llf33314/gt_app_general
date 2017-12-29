@@ -39,7 +39,7 @@ axios.interceptors.request.use(config => {
 axios.interceptors.response.use(response => {
     if (response.data.code === 100) {
         return response.data;
-    } else if (msgShow) {
+    } else if (!msgShow) {
         return Promise.reject(response);
     } else if (response.data.msg) {
         checkCode(response.data.msg)

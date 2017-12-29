@@ -21,7 +21,7 @@
             <div class="col-text">本月实收</div>
         </div>
         <div class="content-col">
-            <div class="col-number">{{data.monthNewCheck.toFixed(2)}}</div>
+            <div class="col-number">{{data.monthNewCheck}}</div>
             <div class="col-text">本月新入住</div>
         </div>
       </div>
