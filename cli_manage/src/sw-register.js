@@ -31,9 +31,10 @@ navigator.serviceWorker && navigator.serviceWorker.register('/service-worker.js'
             document.body.appendChild(dom);
             setTimeout(() => document.getElementById('app-refresh').className += ' app-refresh-show', 16);
             */
-            
+
             //代码更新自动刷新页面
-            setTimeout(() => location.reload(), 50);
+            window.location.reload();
+            // setTimeout(() => window.location.reload(), 50);
         }
     });
 });

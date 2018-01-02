@@ -107,8 +107,11 @@ export default {
       window.location.href = url;
     },
     //下拉刷新
-    refresh() {
-      this.getData();
+    refresh(done) {
+      setTimeout(() => {
+        this.getData();
+        done();
+      }, 1500)
     },
     //获取数据
     getData() {
@@ -117,12 +120,10 @@ export default {
       index.getAccountInfo({
         fn: res => {
           vm.userInfo = res[0].data;
+          vm.userModule = [];
 
           for (let i = 0; i < res[1].data.length; i++) {
-            if (
-              typeof vm.industry[res[1].data[i].code] !== "undefined" &&
-              res[1].data[i].status == 1
-            ) {
+            if (typeof vm.industry[res[1].data[i].code] !== "undefined" && res[1].data[i].status == 1) {
               vm.userModule.push({
                 component: vm.industry[res[1].data[i].code],
                 code: res[1].data[i].code,
