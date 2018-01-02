@@ -4,7 +4,9 @@ import com.alibaba.fastjson.JSON;
 import com.gt.api.exception.SignException;
 import com.gt.api.util.sign.SignHttpUtils;
 import com.gt.app.common.dto.ResponseDTO;
+import com.gt.app.common.enums.ResponseEnums;
 import com.gt.app.core.bean.manage.res.industryinfo.PropertyInfoRes;
+import com.gt.app.core.exception.manage.IndustryException;
 import com.gt.app.core.service.manage.industry.IndustryInfoService;
 import com.gt.app.core.util.CommonUtil;
 import com.gt.axis.bean.wxmp.bus.BusUser;
@@ -56,6 +58,9 @@ public class PropertyInfoServiceImpl implements IndustryInfoService {
             resultMap = JSON.parseObject(resutl, Map.class);
         } catch (SignException e) {
             return ResponseDTO.createByError();
+        }
+        if (CommonUtil.isEmpty(resultMap)) {
+            throw new IndustryException(ResponseEnums.BUS_NULL);
         }
         if ((Integer) resultMap.get("code") != 0 || resultMap.get("data") == null) {
             return ResponseDTO.createByErrorMessage((String) resultMap.get("message"));
