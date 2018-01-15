@@ -33,7 +33,7 @@ navigator.serviceWorker && navigator.serviceWorker.register('/service-worker.js'
             */
 
             //代码更新自动刷新页面
-            setTimeout(() => location.reload(), 20);
+            setTimeout(() => location.reload(), 50);
         }
     });
 });
